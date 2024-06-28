@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     protected $fillable = [
-      'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject',
+      'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject_id',
     ];
 
     public function question(){
@@ -17,10 +17,14 @@ class Topic extends Model
     public function answer(){
       return $this->hasOne('App\Answer');
     }
-    
+
     public function user() {
       return $this->belongsToMany('App\User','topic_user')
          ->withPivot('amount','transaction_id', 'status')
         ->withTimestamps();
     }
+
+	public function subject(){
+	  return $this->belongsTo('App\Subject');
+	}
 }

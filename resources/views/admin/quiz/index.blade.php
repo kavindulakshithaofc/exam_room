@@ -36,12 +36,18 @@
                   <span class="required">*</span>
                   {!! Form::number('per_q_mark', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Per Question Mark', 'required' => 'required']) !!}
                   <small class="text-danger">{{ $errors->first('per_q_mark') }}</small>
-                </div>   
-                <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
-                  {!! Form::label('subject', 'Subject') !!}
-                  {!! Form::text('subject', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Subject']) !!}
-                  <small class="text-danger">{{ $errors->first('subject') }}</small>
-                </div>  
+                </div>
+                <div class="form-group{{ $errors->has('subject_id') ? ' has-error' : '' }}">
+					{!! Form::label('subject_id', 'Subject') !!}
+					<span class="required">*</span>
+					<select name="subject_id" id="subject_id" class="select2 form-control">
+						<option value="">Select Subject</option>
+						@foreach($subjects as $subject)
+							<option value="{{ $subject->id }}">{{ $subject->title }}</option>
+						@endforeach
+					</select>
+					<small class="text-danger">{{ $errors->first('subject_id') }}</small>
+				</div>
                 <div class="form-group{{ $errors->has('timer') ? ' has-error' : '' }}">
                   {!! Form::label('timer', 'Paper Time (in minutes)') !!}
                   {!! Form::number('timer', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Paper Total Time (In Minutes)']) !!}
@@ -56,7 +62,7 @@
 
                 <input type="checkbox" class="quizfp toggle-input" name="quiz_price" id="toggle">
                 <label for="toggle"></label>
-               
+
                 <div style="display: none;" id="doabox">
                    <br>
                   <label for="dob">Choose Paper Price: </label>
@@ -71,7 +77,7 @@
                  <input type="checkbox" class="toggle-input" name="show_ans" id="toggle2">
                  <label for="toggle2"></label>
                 <br>
-              </div>                
+              </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
@@ -99,6 +105,7 @@
           <tr>
             <th>#</th>
             <th>Paper Title</th>
+            <th>Subject</th>
             <th>Description</th>
             <th>Per Question Mark</th>
             <th>Time</th>
@@ -107,7 +114,7 @@
         </thead>
         @if(isset($topics))
         <tbody>
-         
+
         </tbody>
         @endif
       </table>
@@ -115,14 +122,14 @@
   </div>
 @endsection
 @section('scripts')
-<script type="text/javascript">  
- 
+<script type="text/javascript">
+
   $(function() {
     $('#fb_check').change(function() {
       $('#fb').val(+ $(this).prop('checked'))
     })
-  }) 
-                  
+  })
+
   $(document).ready(function(){
 
       $('.quizfp').change(function(){
@@ -132,12 +139,12 @@
         }else{
             $('#doabox').hide('fast');
         }
-       
+
       });
 
-  });                             
+  });
 
-                               
+
   $('#priceCheck').change(function(){
     alert('hi');
   });
@@ -150,7 +157,7 @@
 
       $('#doabox2'+id).hide('fast');
     }
-  }     
+  }
 
 $(function () {
 
@@ -166,6 +173,8 @@ $(function () {
 
       {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false, searchable: false},
       {data: 'title', name: 'title'},
+      {data: 'subject', name: 'subject'},
+    //   {data: 'subject_id', name: 'subject_id'},
       {data: 'description', name: 'description'},
       {data: 'per_q_mark', name: 'per_q_mark'},
       {data: 'timer', name: 'timer'},
@@ -180,7 +189,7 @@ $(function () {
     });
 
   });
-  
+
 </script>
 
 @endsection

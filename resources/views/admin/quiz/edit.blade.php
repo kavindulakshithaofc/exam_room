@@ -18,9 +18,9 @@
           </a>
         </h3>
       <hr>
-    
+
       {!! Form::model($topic, ['method' => 'PATCH', 'action' => ['TopicController@update', $topic->id]]) !!}
-            
+
         <div class="row">
           <div class="col-md-6">
             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -39,24 +39,31 @@
               {!! Form::label('timer', 'Quiz Time (in minutes)') !!}
               {!! Form::number('timer', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Quiz Total Time (In Minutes)']) !!}
               <small class="text-danger">{{ $errors->first('timer') }}</small>
-            </div>     
-            <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
-              {!! Form::label('subject', 'Subject') !!}
-              {!! Form::text('subject', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Subject']) !!}
-              <small class="text-danger">{{ $errors->first('subject') }}</small>
-            </div>             
+            </div>
+
+			<div class="form-group{{ $errors->has('subject_id') ? ' has-error' : '' }}">
+				{!! Form::label('subject_id', 'Subject') !!}
+				<span class="required">*</span>
+				<select name="subject_id" id="" class="select2 form-control">
+					<option value="">Select Subject</option>
+					@foreach($subjects as $subject)
+						<option value="{{ $subject->id }}" {{  $subject->id == $topic->subject_id ? 'selected' : '' }}>{{ $subject->title }}</option>
+					@endforeach
+				</select>
+				<small class="text-danger">{{ $errors->first('subject_id') }}</small>
+			</div>
              <label for="">Enable Show Answer: </label>
              <input {{ $topic->show_ans ==1 ? "checked" : "" }} type="checkbox" class="toggle-input" name="show_ans" id="toggle{{ $topic->id }}">
              <label for="toggle{{ $topic->id }}"></label>
-            
+
              <label for="">Quiz Price:</label>
              <input onchange="showprice('{{ $topic->id }}')" {{ $topic->amount !=NULL  ? "checked" : ""}} type="checkbox" class="toggle-input " name="pricechk" id="toggle2{{ $topic->id }}">
-             <label for="toggle2{{ $topic->id }}"></label>         
-            
+             <label for="toggle2{{ $topic->id }}"></label>
+
           </div>
           <div class="col-md-6">
             <div style="{{ $topic->amount == NULL ? "display: none" : "" }}" id="doabox2{{ $topic->id }}">
-               
+
               <label for="doba">Choose Quiz Price: </label>
               <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                <input value="{{ $topic->amount }}" name="amount" id="doa" type="text" class="form-control"  placeholder="Please Enter Quiz Price">
@@ -78,14 +85,14 @@
 </div>
 @endsection
 @section('scripts')
-<script type="text/javascript">  
- 
+<script type="text/javascript">
+
   $(function() {
     $('#fb_check').change(function() {
       $('#fb').val(+ $(this).prop('checked'))
     })
-  }) 
-                  
+  })
+
   $(document).ready(function(){
       $('.quizfp').change(function(){
         if ($('.quizfp').is(':checked')){
@@ -93,12 +100,12 @@
         }else{
             $('#doabox').hide('fast');
         }
-       
+
       });
 
-  });                                
+  });
 
-                               
+
   $('#priceCheck').change(function(){
     alert('hi');
   });

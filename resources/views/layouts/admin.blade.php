@@ -13,18 +13,18 @@
     <!--[if IE]>
         <link href="/favicon.ico" type="image/vnd.microsoft.icon" rel="shortcut icon" >
     <![endif]-->
-    <title>{{ $setting->welcome_txt }} Admin Panel</title>    
+    <title>{{ $setting->welcome_txt }} Admin Panel</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"><!-- Bootstrap-->    
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"><!-- Font Awesome -->    
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"><!-- Bootstrap-->
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"><!-- Font Awesome -->
     <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet"><!-- Ionicons -->
     <!-- Admin Theme style -->
     <link href="{{ asset('css/AdminLTE.css') }}" rel="stylesheet">
     <link href="{{ asset('css/skin-black.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/fontawesome-iconpicker.min.css') }}" rel="stylesheet">    
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet"><!-- Select 2 -->    
+    <link href="{{ asset('css/fontawesome-iconpicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet"><!-- Select 2 -->
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet"><!-- DataTable -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">    
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" rel="stylesheet"><!-- Google Font -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
@@ -42,16 +42,16 @@
                                 alt="{{ $setting->welcome_txt }}">
                         @endif
                     </span>
-                </a>                
-                <nav class="navbar navbar-static-top" role="navigation">                    
+                </a>
+                <nav class="navbar navbar-static-top" role="navigation">
                     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                         <span class="sr-only">Toggle navigation</span>
                     </a>
                     <a href="{{ url('/') }}" class="btn visit-btn" target="_blank" title="Visit Site">Visit Site
-                        <i class="fa fa-arrow-circle-o-right"></i></a>                    
+                        <i class="fa fa-arrow-circle-o-right"></i></a>
                     <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">                            
-                            <li class="dropdown">                                
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <span class="hidden-xs">{{ $auth->name }}</span>
                                     <i class="fa fa-user hidden-lg hidden-md hidden-sm"></i>
@@ -123,9 +123,9 @@
                         </form>
                     </div>
                 </div>
-            </div>            
-            <aside class="main-sidebar">                
-                <section class="sidebar">                    
+            </div>
+            <aside class="main-sidebar">
+                <section class="sidebar">
                     <div class="user-panel">
                         <div style="display: inline-flex;" class="pull-left info">
 
@@ -138,7 +138,7 @@
                             @endif
                             <h4 style="margin:15px;">{{ $auth->name }}</h4>
                         </div>
-                    </div>                    
+                    </div>
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">Main Sections</li>
                         @php
@@ -153,11 +153,13 @@
                             $page_header = '';
                             $pwa = '';
                         @endphp
-                        @if ($auth->role == 'A')                            
+                        @if ($auth->role == 'A')
                             <li class="{{ $dash }}"><a href="{{ url('/admin') }}" title="Dashboard"><i
                                         class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                             <li class="{{ $users }}"><a href="{{ url('/admin/users') }}" title="Students"><i
                                         class="fa fa-users"></i> <span>Students</span></a></li>
+                            <li class="{{ $quiz }}"><a href="{{ url('admin/subjects') }}" title="Subjects"><i
+                                        class="fa fa-list"></i> <span>Subjects</span></a></li>
                             <li class="{{ $quiz }}"><a href="{{ url('admin/topics') }}" title="Quiz"><i
                                         class="fa fa-gears"></i> <span>Papers</span></a></li>
                             <li class="{{ $questions }}"><a href="{{ url('admin/questions') }}"
@@ -285,11 +287,11 @@
     </footer>
     </div>
     @endif
-    <!-- ./wrapper --> 
+    <!-- ./wrapper -->
     <script src="{{ asset('js/jquery.min.js') }}"></script><!-- jQuery -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script><!-- Bootstrap -->    
-    <script src="{{ asset('js/datatables.min.js') }}"></script><!-- DataTable -->    
-    <script src="{{ asset('js/select2.full.min.js') }}"></script><!-- Select2 -->    
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script><!-- Bootstrap -->
+    <script src="{{ asset('js/datatables.min.js') }}"></script><!-- DataTable -->
+    <script src="{{ asset('js/select2.full.min.js') }}"></script><!-- Select2 -->
     <script src="{{ asset('js/adminlte.min.js') }}"></script><!-- Admin -->
     <script src="{{ asset('js/fontawesome-iconpicker.min.js') }}"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>

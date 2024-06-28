@@ -56,7 +56,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
       $query = http_build_query([
           'client_id' => '1',
           'redirect_uri' => 'http://example.com/callback',
-          'response_type' => 'token', 
+          'response_type' => 'token',
           'scope' => '',
       ]);
 
@@ -76,7 +76,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 	// Route::get('admin/transaction/create','TranscationController@create')->name('transcation.create');
 	Route::post('admin/users/store','UsersController@store')->name('users.store');
 	Route::get('admin/users/edit/{id}','UsersController@edit')->name('users.edit');
-	Route::patch('admin/users/update/{id}', 'UsersController@update')->name('users.update');	
+	Route::patch('admin/users/update/{id}', 'UsersController@update')->name('users.update');
   Route::delete('admin/users/{id}', 'UsersController@destroy')->name('users.destroy');
 
   Route::get('/admin/profile', function(){
@@ -107,17 +107,17 @@ Route::group(['middleware'=> 'coming_soon'], function(){
     $questions = Question::where('topic_id', $id)->get();
     $count_questions = $questions->count();
     $answers = Answer::where('user_id',$auth->id)
-                ->where('topic_id',$id)->get(); 
+                ->where('topic_id',$id)->get();
 
     if($count_questions != $answers->count()){
-      foreach($questions as $que){ 
-        $a = false;   
-        foreach($answers as $ans){ 
-          if($que->id == $ans->question_id){ 
+      foreach($questions as $que){
+        $a = false;
+        foreach($answers as $ans){
+          if($que->id == $ans->question_id){
             $a = true;
           }
         }
-        if($a == false){  
+        if($a == false){
           Answer::create([
             'topic_id' => $id,
             'user_id' => $auth->id,
@@ -131,7 +131,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 
     $ans= Answer::all();
     $q= Question::all();
-    
+
     return view('finish', compact('ans','q','topic', 'answers', 'count_questions'));
   });
 
@@ -190,6 +190,7 @@ Route::group(['middleware'=> 'isadmin'], function(){
   Route::resource('/admin/all_reports', 'AllReportController');
   Route::resource('/admin/top_report', 'TopReportController');
   Route::resource('/admin/topics', 'TopicController');
+  Route::resource('/admin/subjects', 'SubjectController');
   Route::resource('/admin/questions', 'QuestionsController');
   Route::post('/admin/questions/import_questions', 'QuestionsController@importExcelToDB')->name('import_questions');
   Route::resource('/admin/answers', 'AnswersController');
@@ -197,14 +198,14 @@ Route::group(['middleware'=> 'isadmin'], function(){
 
   Route::post('/admin/users/destroy', 'DestroyAllController@AllUsersDestroy');
   Route::post('/admin/answers/destroy', 'DestroyAllController@AllAnswersDestroy');
-  
+
   Route::get('/admin/pages','PagesController@index')->name('pages.index');
   Route::get('/admin/pages/add','PagesController@add')->name('pages.add');
   Route::post('/admin/pages/add','PagesController@store')->name('pages.store');
   Route::get('pages/{slug}','PagesController@show')->name('page.show');
   Route::get('/admin/pages/edit/{id}','PagesController@edit')->name('pages.edit');
   Route::put('/admin/pages/edit/{id}','PagesController@update')->name('pages.update');
-  Route::delete('/delete/pages/{id}','PagesController@destroy')->name('pages.delete'); 
+  Route::delete('/delete/pages/{id}','PagesController@destroy')->name('pages.delete');
 
   Route::get('admin/moresettings/faq/','FAQController@index')->name('faq.index');
   Route::get('admin/moresettings/faq/add','FAQController@create')->name('faq.add');
