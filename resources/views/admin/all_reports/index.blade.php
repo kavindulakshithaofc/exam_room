@@ -23,7 +23,7 @@
               <div class="col-xs-6 pad-0">
                 <ul class="topic-detail">
                   <li>Per Question Mark <i class="fa fa-long-arrow-right"></i></li>
-                  <li>Subject <i class="fa fa-long-arrow-right"></i></li>
+                  <li>Paper title <i class="fa fa-long-arrow-right"></i></li>
                   <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                   <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
                   <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
@@ -32,7 +32,7 @@
               <div class="col-xs-6">
                 <ul class="topic-detail right">
                   <li>{{$topic->per_q_mark}}</li>
-                  <li>{{$topic->subject}}</li>
+                  <li>{{$topic->title}}</li>
                   <li>
                     @php
                         $qu_count = 0;

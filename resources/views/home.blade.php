@@ -111,7 +111,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6 pad-0">
                                                     <ul class="topic-detail">
-                                                        <li>Subject <i class="fa fa-long-arrow-right"></i></li>
+                                                        <li>Paper title <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Per Question Mark <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
@@ -121,7 +121,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <ul class="topic-detail right">
-                                                        <li>{{ $topic->subject }}</li>
+                                                        <li>{{ $topic->title }}</li>
                                                         <li>{{ $topic->per_q_mark }}</li>
                                                         <li>
                                                             @php
