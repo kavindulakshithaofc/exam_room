@@ -17,7 +17,7 @@ class TopicController extends Controller
     {
         $topics = Topic::all();
 
-        $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','subject_id','subjects.title as subject')->join('subjects','topics.subject_id','=','subjects.id');
+        $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject')->join('subjects','topics.subject_id','=','subjects.id');
           if($request->ajax()){
 
             return DataTables::of($topics)
@@ -36,6 +36,9 @@ class TopicController extends Controller
             })
             ->addColumn('timer',function($row){
               return $row->timer;
+            })
+            ->addColumn('attempts',function($row){
+              return $row->attempts;
             })
 
             ->addColumn('action',function($row){
@@ -73,7 +76,7 @@ class TopicController extends Controller
                 </div>';
               return $btn;
             })
-            ->rawColumns(['title','subject_id', 'subject', 'description','per_q_mark','timer','action'])
+            ->rawColumns(['title','subject_id', 'subject', 'description','per_q_mark','timer','attempts','action'])
             ->make(true);
 
           }
@@ -106,6 +109,7 @@ class TopicController extends Controller
           'title' => 'required|string',
           'per_q_mark' => 'required',
           'subject_id' => 'required',
+          'attempts' => 'required',
 
         ]);
 
@@ -178,6 +182,7 @@ class TopicController extends Controller
           'title' => 'required|string',
           'per_q_mark' => 'required',
           'subject_id' => 'required',
+          'attempts' => 'requred',
 
         ]);
 

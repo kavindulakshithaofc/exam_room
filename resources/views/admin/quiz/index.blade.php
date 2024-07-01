@@ -54,6 +54,12 @@
                   <small class="text-danger">{{ $errors->first('timer') }}</small>
                 </div>
 
+                <div class="form-group{{ $errors->has('attempts') ? ' has-error' : '' }}">
+                  {!! Form::label('attempts', 'No of attepmts for the exam') !!}
+                  {!! Form::number('attempts', null, ['class' => 'form-control', 'placeholder' => 'No of attemts Students can write answers']) !!}
+                  <small class="text-danger">{{ $errors->first('attempts') }}</small>
+                </div>
+              
                 <label for="married_status">Paper Price:</label>
                 {{-- <select name="married_status" id="ms" class="form-control">
                   <option value="no">Free</option>
@@ -109,6 +115,7 @@
             <th>Description</th>
             <th>Per Question Mark</th>
             <th>Time</th>
+            <th>Attempts</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -178,6 +185,7 @@ $(function () {
       {data: 'description', name: 'description'},
       {data: 'per_q_mark', name: 'per_q_mark'},
       {data: 'timer', name: 'timer'},
+      {data: 'attempts', name: 'attempts'},
       {data: 'action', name: 'action',searchable: false}
 
       ],

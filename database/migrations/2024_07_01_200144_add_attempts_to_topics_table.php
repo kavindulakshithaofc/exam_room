@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('answers', function (Blueprint $table) {
-            $table->integer('attempt_number')->default(1);
+        Schema::table('topics', function (Blueprint $table) {
+            Schema::table('topics', function (Blueprint $table) {
+                $table->integer('attempts')->default(1)->after('timer'); // Adjust the default value if needed
+            });
         });
     }
 
@@ -21,8 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('answers', function (Blueprint $table) {
-            $table->dropColumn('attempt_number');
+        Schema::table('topics', function (Blueprint $table) {
+            $table->dropColumn('attempts');
         });
     }
 };

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     protected $fillable = [
-      'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject_id',
+      'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject_id', 'attempts' ,
     ];
 
     public function question(){
