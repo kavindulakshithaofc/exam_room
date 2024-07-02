@@ -100,8 +100,12 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 	$count_questions = $questions->count();
 	$answers = Answer::where('user_id', auth()->id())
 			->where('topic_id', $id)->get();
-	if($current_attempt > 1 && ($count_questions == $answers->count())){
-		App\Answer::where('topic_id', $topic->id)->where('user_id', Auth::user()->id)->where('current_attempt', '<>', $current_attempt)->delete();
+			// dd('ss', $count_questions, $answers->count());
+	if($current_attempt > 1 && ($count_questions <= $answers->count())){
+
+		if($current_attempt <= $topic->attempts){
+			App\Answer::where('topic_id', $topic->id)->where('user_id', Auth::user()->id)->where('current_attempt', '<>', $current_attempt)->delete();
+		}
 	}
 	$count_questions = $questions->count();
     return view('main_quiz', compact('topic', 'current_attempt', 'count_questions'));
