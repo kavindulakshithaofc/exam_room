@@ -9,8 +9,8 @@
     <link href="{{asset('css/custom-style.css')}}" rel="stylesheet">
     <!--[if IE]>
         <link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
-    <![endif]-->    
-    <meta name="csrf-token" content="{{ csrf_token() }}">    
+    <![endif]-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$setting->welcome_txt}}</title>
     <!-- Styles -->
     @yield('head')
@@ -26,7 +26,7 @@
     @php
      $ct = App\copyrighttext::where('id','=',1)->first();
     @endphp
-    
+
    <div class="front-footer">
         <div class="container" >
             <div class="row">
@@ -45,8 +45,8 @@
                 </div>
             </div>
         </div>
-    </div>   
-    <script src="{{ asset('js/app.js') }}"></script>
+    </div>
+    <script src="{{ asset('js/app.js?v=2') }}"></script>
     <script src="{{ asset('js/custom-js.js') }}"></script>
     @yield('scripts')
 </body>

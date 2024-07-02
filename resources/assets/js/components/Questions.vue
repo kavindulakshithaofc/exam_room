@@ -26,7 +26,7 @@
             </div>
           </div>
 
-          <form class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question.id, question.answer, auth.id, question.topic_id)" method="post">
+          <form class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question.id, question.answer, auth.id, question.topic_id, current_attempt)" method="post">
             <input required="" class="radioBtn" v-bind:id="'radio'+ index" type="radio" v-model="result.user_answer" value="A" aria-checked="false"> <span>{{question.a}}</span><br>
             <input required="" class="radioBtn" v-bind:id="'radio'+ index+1" type="radio" v-model="result.user_answer" value="B" aria-checked="false"> <span>{{question.b}}</span><br>
             <input required="" class="radioBtn" v-bind:id="'radio'+ index+2" type="radio" v-model="result.user_answer" value="C" aria-checked="false"> <span>{{question.c}}</span><br>
@@ -38,7 +38,7 @@
               <div v-if="question.f != null">
                 <input class="radioBtn" v-bind:id="'radio'+ index+5" type="radio" v-model="result.user_answer" value="F" aria-checked="false"> <span>{{question.f}}</span><br>
               </div>
-              
+
             <div class="row">
               <div class="col-md-6 col-xs-8">
                 <button type="submit" class="btn btn-wave btn-block nextbtn">Next</button>
@@ -61,13 +61,13 @@
               </div>
               <div class="tab-pane fade" :id="'video'+(index+1)" v-if="question.question_video_link != null">
                 <div class="question-video-block">
-                  <h3 class="question-block-heading">Question Video</h3>   
+                  <h3 class="question-block-heading">Question Video</h3>
                   <iframe :id="'yui'+(index+1)" width="460" height="345" :src="question.question_video_link" frameborder="0" allowfullscreen></iframe>
                 </div>
               </div>
               <div class="tab-pane fade" :id="'audio'+(index+1)" v-if="question.question_audio != null">
                 <div class="question-video-block">
-                  <h3 class="question-block-heading">Question Audio</h3>   
+                  <h3 class="question-block-heading">Question Audio</h3>
                   <audio controls :id='`xyz${index+1}`' width="460" height="345"  >
                     <source :src="question.question_audio" type="audio/mp3">
                   </audio>
@@ -83,7 +83,7 @@
 <script>
 export default {
 
-  props: ['topic_id'],
+  props: ['topic_id', 'current_attempt'],
 
   data () {
     return {
@@ -95,12 +95,14 @@ export default {
         user_id: '',
         user_answer: 0,
         topic_id: '',
+		current_attempt: 1
       },
       auth: [],
     }
   },
 
   created () {
+  console.log('topic_id', this.$props.topic_id)
     this.fetchQuestions();
   },
 
@@ -119,9 +121,11 @@ export default {
       this.result.question_id = id;
       this.result.answer = ans;
       this.result.user_id = user_id;
+      this.result.current_attempt = this.$props.current_attempt;
       this.result.topic_id = this.$props.topic_id;
       this.$http.post(`${this.$props.topic_id}/quiz`, this.result).then((response) => {
         console.log('request completed');
+        console.log('request completed', this.result);
       }).catch((e) => {
         console.log(e);
       });

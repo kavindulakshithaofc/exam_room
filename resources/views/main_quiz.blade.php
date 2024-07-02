@@ -31,15 +31,15 @@
           <div class="col-md-6">
             <div class="navbar-header">
               <!-- Branding Image -->
-              
+
               @if($topic)
                 <h4 class="heading">{{$topic->title}}</h4>
-              
+
               @endif
             </div>
           </div>
           <div class="col-md-6">
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">              
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
               <!-- Right Side Of Navbar -->
               <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -54,21 +54,19 @@
 @endsection
 
 @section('content')
- 
+
 <div class="container">
   @if ($auth)
     <div class="home-main-block">
-      <?php 
+      <?php
+	//   dd($current_attempt);
         $users =  App\Answer::where('topic_id',$topic->id)->where('user_id',Auth::user()->id)->first();
-        // dd($users);
         $que =  App\Question::where('topic_id',$topic->id)->first();
+        // dd($current_attempt, $topic->attempts);
       ?>
+<!-- dfdsfdf -->
 
-      @if(empty($users))
-        <div id="question_block" class="question-block">
-          <question :topic_id="{{$topic->id}}" ></question>
-        </div>
-        @if(empty($que))
+	@if(empty($que))
         <div class="alert alert-danger">
           <p>
             No Questions in this quiz <b> {{$topic->title}} </b>
@@ -77,9 +75,8 @@
             <a class="text-danger" href="{{ url('/home')}}"> <u> <i class="fa fa-home" aria-hidden="true"></i> Return Home </u> </a>
           </p>
         </div>
-        @endif
-      @else
-        <div class="alert alert-danger text-center">
+	@elseif($current_attempt > $topic->attempts && (!$users || ($users && ($count_questions == $users->count()))))
+        <div class="alert alert-danger">
           <p>
             You have already submitted the quiz <b> {{$topic->title}}.</b>
           </p>
@@ -87,7 +84,11 @@
             <a class="text-danger" href="{{ url('/home')}}"> <u> <i class="fa fa-home" aria-hidden="true"></i> Return Home </u> </a>
           </p>
         </div>
-      @endif
+	@else
+        <div id="question_block" class="question-block">
+          <question :topic_id="{{$topic->id}}" :current_attempt="{{ $current_attempt }}"></question>
+        </div>
+	@endif
     </div>
   @endif
 </div>
@@ -101,7 +102,7 @@
   <script src="{{asset('js/jquery.cookie.js')}}"></script>
   <script src="{{asset('js/jquery.countdown.js')}}"></script>
 
-  @if(!empty($que) && empty($users))
+  @if(!empty($que) && !($current_attempt > $topic->attempts && $users && ($count_questions == $users->count())))
    <script>
     var topic_id = {{$topic->id}};
     var timer = {{$topic->timer}};
@@ -111,7 +112,7 @@
       }
       setTimeout(function() {
           $(".myQuestion:first-child").addClass("active");
-          $(".prebtn").attr("disabled", true); 
+          $(".prebtn").attr("disabled", true);
       }, 2500), history.pushState(null, null, document.URL), window.addEventListener("popstate", function() {
           history.pushState(null, null, document.URL)
       }), $(document).on("keydown", e), setTimeout(function() {
@@ -122,7 +123,7 @@
               }), location.href = "{{$topic->id}}/finish") : ($(e).next().addClass("active"), $(".myForm")[0].reset(),
               $(".prebtn").attr("disabled", false))
           }),
-          $(".prebtn").click(function() {  
+          $(".prebtn").click(function() {
               var e = $(".myQuestion.active");
               $(e).removeClass("active"),
               $(e).prev().addClass("active"), $(".myForm")[0].reset()
@@ -160,7 +161,7 @@
   {{ "" }}
   @endif
 
-  
+
  @if($setting->right_setting == 1)
   <script type="text/javascript" language="javascript">
    // Right click disable

@@ -39,11 +39,14 @@ class MainQuizController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+		// $input['current_attempt'] = Answer::where('user_id',$request->user_id)->where('topic_id',$request->topic_id)->first()->current_attempt;
         $exist = Answer::where('user_id',$request->user_id)->where('topic_id',$request->topic_id)->where('question_id',$request->question_id)->first();
         if(!is_null($exist)){
+			unset($input['current_attempt']);
             $exist->update($input);
         }
         else{
+			// $input['current_attempt'] = Answer::where('user_id',$request->user_id)->where('topic_id',$request->topic_id)->first()->current_attempt ?? 1;
             Answer::create($input);
         }
     }
@@ -58,7 +61,6 @@ class MainQuizController extends Controller
     {
           $topic = Topic::findOrFail($id);
           $auth = Auth::user();
-
           if ($auth) {
             if ($answers = Answer::where('user_id', $auth->id)->get()) {
                 $all_questions = collect();
@@ -79,7 +81,8 @@ class MainQuizController extends Controller
             $questions = Question::where('topic_id', $topic->id)->get();
             $questions = $questions->flatten();
             $questions = $questions->shuffle();
-            return response()->json(["questions" => $questions, "auth"=>$auth]);
+			$current_attempt = Answer::where('topic_id', $topic->id)->where('user_id', auth()->id())->first()->current_attempt ?? 1;
+            return response()->json(["questions" => $questions, "auth"=>$auth, 'current_attempt' => $current_attempt]);
           }
           return redirect('/');
     }

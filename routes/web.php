@@ -95,8 +95,16 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 
   Route::get('start_quiz/{id}', function($id){
     $topic = Topic::findOrFail($id);
-    $answers = Answer::where('topic_id','=',$topic->topic_id)->first();
-    return view('main_quiz', compact('topic','answers'));
+	$current_attempt = cache()->rememberForever('attempt-'. auth()->id() . '-'.$id, function() use ($topic){ return (Answer::where('topic_id', $topic->id)->where('user_id', auth()->id())->first()->current_attempt ?? 0 )+ 1;});
+	$questions = Question::where('topic_id', $id)->get();
+	$count_questions = $questions->count();
+	$answers = Answer::where('user_id', auth()->id())
+			->where('topic_id', $id)->get();
+	if($current_attempt > 1 && ($count_questions == $answers->count())){
+		App\Answer::where('topic_id', $topic->id)->where('user_id', Auth::user()->id)->where('current_attempt', '<>', $current_attempt)->delete();
+	}
+	$count_questions = $questions->count();
+    return view('main_quiz', compact('topic', 'current_attempt', 'count_questions'));
   })->name('start_quiz');
 
   Route::resource('start_quiz/{id}/quiz', 'MainQuizController');
@@ -108,7 +116,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
     $count_questions = $questions->count();
     $answers = Answer::where('user_id',$auth->id)
                 ->where('topic_id',$id)->get();
-
+	cache()->forget('attempt-'. auth()->id() . '-'.$id);
     if($count_questions != $answers->count()){
       foreach($questions as $que){
         $a = false;
@@ -124,6 +132,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
             'question_id' => $que->id,
             'user_answer' => 0,
             'answer' => $que->answer,
+			'current_attempt' => 1
           ]);
         }
       }
