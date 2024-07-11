@@ -70,7 +70,7 @@
                   {!! Form::number('attempts', null, ['class' => 'form-control', 'placeholder' => 'No of attemts Students can write answers']) !!}
                   <small class="text-danger">{{ $errors->first('attempts') }}</small>
                 </div>
-              
+
                 <label for="married_status">Paper Price:</label>
                 {{-- <select name="married_status" id="ms" class="form-control">
                   <option value="no">Free</option>
@@ -130,11 +130,6 @@
             <th>Actions</th>
           </tr>
         </thead>
-        @if(isset($topics))
-        <tbody>
-
-        </tbody>
-        @endif
       </table>
     </div>
   </div>
@@ -192,11 +187,11 @@ $(function () {
       {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false, searchable: false},
       {data: 'title', name: 'title'},
       {data: 'subject', name: 'subject'},
-    //   {data: 'subject_id', name: 'subject_id'},
       {data: 'description', name: 'description'},
       {data: 'per_q_mark', name: 'per_q_mark'},
       {data: 'timer', name: 'timer'},
       {data: 'attempts', name: 'attempts'},
+    //   {data: 'type', name: 'type'},
       {data: 'action', name: 'action',searchable: false}
 
       ],

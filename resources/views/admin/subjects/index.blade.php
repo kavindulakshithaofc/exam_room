@@ -58,13 +58,9 @@
           <tr>
             <th>#</th>
             <th>Subject Title</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        @if(isset($subjects))
-        <tbody>
-
-        </tbody>
-        @endif
       </table>
     </div>
   </div>

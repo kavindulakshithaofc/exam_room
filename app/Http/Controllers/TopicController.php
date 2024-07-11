@@ -15,24 +15,24 @@ class TopicController extends Controller
      */
     public function index(Request $request)
     {
-        $topics = Topic::all();
+        // $topics = Topic::all();
 
-        $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id');
-          if($request->ajax()){
+		if($request->ajax()){
+			  $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id');
 
             return DataTables::of($topics)
-            ->addIndexColumn()
+            ->addIndexColumn('id')
             ->addColumn('title',function($row){
                 return $row->title;
             })
+			->addColumn('subject', function ($row) {
+				return $row->subject;
+			})
             ->addColumn('description',function($row){
                 return $row->description;
             })
             ->addColumn('per_q_mark',function($row){
                 return $row->per_q_mark;
-            })
-            ->addColumn('subject',function($row){
-                return $row->subject;
             })
             ->addColumn('timer',function($row){
               return $row->timer;
@@ -79,13 +79,13 @@ class TopicController extends Controller
                 </div>';
               return $btn;
             })
-            ->rawColumns(['title','subject_id', 'subject', 'description','per_q_mark','timer','attempts','action','type'])
+            ->rawColumns(['title', 'subject', 'description','per_q_mark','timer','attempts','action','type'])
             ->make(true);
 
           }
 		  $subjects = \DB::table('subjects')->select('id','title')->get();
 
-        return view('admin.quiz.index', compact('topics', 'subjects'));
+        return view('admin.quiz.index', compact('subjects'));
     }
 
     /**

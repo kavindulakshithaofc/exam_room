@@ -15,10 +15,8 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        $subjects = Subject::all();
-
-        $subjects = \DB::table('subjects')->select('id','title');
-          if($request->ajax()){
+		if($request->ajax()){
+			$subjects = \DB::table('subjects')->select('id','title');
 
             return DataTables::of($subjects)
             ->addIndexColumn()
@@ -60,12 +58,12 @@ class SubjectController extends Controller
                 </div>';
               return $btn;
             })
-            ->rawColumns(['title','description','per_q_mark','timer','action'])
+            // ->rawColumns(['title', 'action'])
             ->make(true);
 
           }
 
-        return view('admin.subjects.index', compact('subjects'));
+        return view('admin.subjects.index');
     }
 
     /**
