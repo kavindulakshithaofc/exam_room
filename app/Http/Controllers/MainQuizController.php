@@ -74,15 +74,17 @@ class MainQuizController extends Controller
                 $q_filter = $q_filter->flatten();
                 $questions = $all_questions->diff($q_filter);
                 $questions = $questions->flatten();
-                if($topic->type='challenges'){
+                if($topic->type == 'challenges'){
                     $questions = $questions->shuffle();
                 }
                 return response()->json(["questions" => $questions, "auth"=>$auth, "topic" => $topic->id]);
             }
             $questions = collect();
             $questions = Question::where('topic_id', $topic->id)->get();
-            $questions = $questions->flatten();
-            $questions = $questions->shuffle();
+			$questions = $questions->flatten();
+			if ($topic->type == 'challenges') {
+				$questions = $questions->shuffle();
+			}
 			$current_attempt = Answer::where('topic_id', $topic->id)->where('user_id', auth()->id())->first()->current_attempt ?? 1;
             return response()->json(["questions" => $questions, "auth"=>$auth, 'current_attempt' => $current_attempt]);
           }
