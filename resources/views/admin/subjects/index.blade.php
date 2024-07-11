@@ -1,7 +1,8 @@
 @extends('layouts.admin', [
   'page_header' => 'Subjects',
   'dash' => '',
-  'quiz' => 'active',
+  'quiz' => '',
+  'subjects' => 'active',
   'users' => '',
   'questions' => '',
   'top_re' => '',
@@ -51,9 +52,9 @@
       </div>
     </div>
   </div>
-  <div class="box">
+  <div class="content-block box">
     <div class="box-body table-responsive">
-      <table id="subjectsTable" class="table table-hover table-striped">
+      <table id="subjectsTable" class="table table-striped">
         <thead>
           <tr>
             <th>#</th>
@@ -67,12 +68,6 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-
-  $(document).ready(function(){
-
-  });
-
-
 $(function () {
 
     var table = $('#subjectsTable').DataTable({
@@ -100,5 +95,4 @@ $(function () {
   });
 
 </script>
-
 @endsection

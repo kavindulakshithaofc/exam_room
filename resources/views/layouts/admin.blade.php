@@ -141,42 +141,30 @@
                     </div>
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">Main Sections</li>
-                        @php
-                            $dash = '';
-                            $users = '';
-                            $quiz = '';
-                            $questions = '';
-                            $all_re = '';
-                            $top_re = '';
-                            $sett = '';
-                            $delete = '';
-                            $page_header = '';
-                            $pwa = '';
-                        @endphp
                         @if ($auth->role == 'A')
-                            <li class="{{ $dash }}"><a href="{{ url('/admin') }}" title="Dashboard"><i
+                            <li class="{{ $dash ?? '' }}"><a href="{{ url('/admin') }}" title="Dashboard"><i
                                         class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                            <li class="{{ $users }}"><a href="{{ url('/admin/users') }}" title="Students"><i
+                            <li class="{{ $users ?? '' }}"><a href="{{ url('/admin/users') }}" title="Students"><i
                                         class="fa fa-users"></i> <span>Students</span></a></li>
-                            <li class="{{ $quiz }}"><a href="{{ url('admin/subjects') }}" title="Subjects"><i
+                            <li class="{{ $subjects ?? '' }}"><a href="{{ url('admin/subjects') }}" title="Subjects"><i
                                         class="fa fa-list"></i> <span>Subjects</span></a></li>
-                            <li class="{{ $quiz }}"><a href="{{ url('admin/topics') }}" title="Quiz"><i
+                            <li class="{{ $quiz ?? '' }}"><a href="{{ url('admin/topics') }}" title="Quiz"><i
                                         class="fa fa-gears"></i> <span>Papers</span></a></li>
-                            <li class="{{ $questions }}"><a href="{{ url('admin/questions') }}"
+                            <li class="{{ $questions ?? '' }}"><a href="{{ url('admin/questions') }}"
                                     title="Questions"><i class="fa fa-question-circle-o"></i>
                                     <span>Questions</span></a></li>
-                            <li class="{{ $all_re }}"><a href="{{ url('/admin/all_reports') }}"
+                            <li class="{{ $all_re ?? '' }}"><a href="{{ url('/admin/all_reports') }}"
                                     title="Student Report"><i class="fa fa-file-text-o"></i> <span>Student
                                         Report</span></a></li>
-                            <li class="{{ $top_re }}"><a href="{{ url('/admin/top_report') }}"
+                            <li class="{{ $top_re ?? '' }}"><a href="{{ url('/admin/top_report') }}"
                                     title="Top Student Report"><i class="fa fa-user"></i> <span>Top Student
                                         Report</span></a></li>
 
-                            <li class="{{ $delete }}"><a href="{{ url('/admin/user-requests') }}"
+                            <li class="{{ $delete ?? '' }}"><a href="{{ url('/admin/user-requests') }}"
                                     title="User Delete Requests"><i class="fa fa-user-circle-o"></i> <span>User Delete
                                         Requests</span></a></li>
 
-                            <li class="{{ $sett }}"><a href="{{ url('/admin/settings') }}"
+                            <li class="{{ $sett ?? '' }}"><a href="{{ url('/admin/settings') }}"
                                     title="Settings"><i class="fa fa-gear"></i> <span>Settings</span></a></li>
 
                             {{-- <li class="{{ $pwa }}"><a href="{{ url('/admin/pwa-setting') }}"
@@ -225,17 +213,23 @@
                                         class="fa fa-circle-o"></i>Custom Style Settings</a>
                             </li> --}}
 
-                    </ul>
+                    {{-- </ul> --}}
                     </li>
-                    <li class="{{ Nav::isRoute('admin.payment') }}"><a href="{{ route('admin.payment') }} "
-                            title="Payment History"><i class="fa fa-money"></i> <span>Payment History</span></a></li>
+                    <li class="{{ Nav::isRoute('admin.payment') }}">
+						<a href="{{ route('admin.payment') }} "
+                            title="Payment History"><i class="fa fa-money"></i> <span>Payment History</span></a>
+					</li>
                 @elseif ($auth->role == 'S')
-                    <li><a href="{{ url('/admin/my_reports') }}" title="My Reports"><i
+                    <li>
+						<a href="{{ url('/admin/my_reports') }}" title="My Reports"><i
                                 class="fa fa-file-text-o"></i>
-                            <span>My Reports</span></a></li>
+                            <span>My Reports</span></a>
+						</li>
 
-                    <li><a href="{{ url('/admin/profile') }}" title="My Profile"><i class="fa fa-file-text-o"></i>
-                            <span>My Profile</span></a></li>
+                    <li>
+						<a href="{{ url('/admin/profile') }}" title="My Profile"><i class="fa fa-file-text-o"></i>
+                            <span>My Profile</span></a>
+						</li>
 
                     {{-- <li><a href="{{url('/admin/payment')}}" title="Payment History"><i class="fa fa-money"></i> <span>Payment History</span></a></li> --}}
     @endif
@@ -262,7 +256,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                {{ $page_header }}
+                {{ $page_header ?? '' }}
                 {{-- <small>Optional description</small> --}}
             </h1>
         </section>

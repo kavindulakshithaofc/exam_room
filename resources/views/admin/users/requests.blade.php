@@ -1,4 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.admin', [
+	'delete' => 'active',
+])
 {{-- @section('title', __('Users Account Delete Requests'))
 @section('breadcum')
   <div class="breadcrumbbar">
@@ -8,7 +10,7 @@
             <li class="breadcrumb-item"><a href="{{url('/admin')}}" title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Delete Requests') }}</li>
           </ol>
-      </div>  
+      </div>
     </div>
 @endsection --}}
 @section('content')
@@ -25,7 +27,7 @@
             @endif
             <!-- row started -->
             <div class="col-lg-12">
-                <div class="card dashboard-card m-b-30">                    
+                <div class="card dashboard-card m-b-30">
                     <div class="card-header">
                         {{-- <button type="button" class="float-right btn btn-danger-rgba mr-2 float-right" data-toggle="modal"
                             data-target="#bulk_delete" title="{{ __('Delete Selected') }}"><i
@@ -113,7 +115,7 @@
                                                             </a>
                                                         {{-- </div> --}}
                                                     </div>
-                                                    
+
                                                     <!-- delete Modal start -->
                                                     <div class="modal fade bd-example-modal-sm"
                                                         id="delete{{ $test->id }}" tabindex="-1" role="dialog"
@@ -151,7 +153,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- delete Model ended -->
-                                                    
+
                                                 </td>
 
                                             </tr>
