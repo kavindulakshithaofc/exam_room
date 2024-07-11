@@ -17,7 +17,7 @@ class TopicController extends Controller
     {
         $topics = Topic::all();
 
-        $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject')->join('subjects','topics.subject_id','=','subjects.id');
+        $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id');
           if($request->ajax()){
 
             return DataTables::of($topics)
@@ -39,6 +39,9 @@ class TopicController extends Controller
             })
             ->addColumn('attempts',function($row){
               return $row->attempts;
+            })
+            ->addColumn('type',function($row){
+              return $row->type;
             })
 
             ->addColumn('action',function($row){
@@ -76,7 +79,7 @@ class TopicController extends Controller
                 </div>';
               return $btn;
             })
-            ->rawColumns(['title','subject_id', 'subject', 'description','per_q_mark','timer','attempts','action'])
+            ->rawColumns(['title','subject_id', 'subject', 'description','per_q_mark','timer','attempts','action','type'])
             ->make(true);
 
           }
@@ -110,6 +113,7 @@ class TopicController extends Controller
           'per_q_mark' => 'required',
           'subject_id' => 'required',
           'attempts' => 'required',
+          'type' => 'required',
 
         ]);
 
@@ -183,6 +187,7 @@ class TopicController extends Controller
           'per_q_mark' => 'required',
           'subject_id' => 'required',
           'attempts' => 'requred',
+          'type' => 'required',
 
         ]);
 
@@ -199,6 +204,7 @@ class TopicController extends Controller
           $topic->per_q_mark = $request->per_q_mark;
           $topic->subject_id = $request->subject_id;
           $topic->timer = $request->timer;
+          $topic->type = $request->type;
 
           if(isset($request->show_ans)){
             $topic->show_ans = 1;

@@ -8,15 +8,15 @@
           </blockquote>
           <h2 class="question">Q. &nbsp;{{question.question}}</h2>
 
-          <div class="row" v-if="question.code_snippet !== null">
+          <!-- <div class="row" v-if="question.code_snippet !== null">
             <div class="col-md-10">
               <pre class="code">
                 {{question.code_snippet}}
               </pre>
             </div>
-          </div>
+          </div> -->
 
-          <div class="row" v-if="question.answer_exp !== null">
+          <!-- <div class="row" v-if="question.answer_exp !== null">
             <div class="col-md-10">
                 <blockquote>
                     <span style="font-size:14px;">Answer Explanation</span>
@@ -24,7 +24,7 @@
                     {{ question.answer_exp }}
                 </blockquote>
             </div>
-          </div>
+          </div> -->
 
           <form class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question.id, question.answer, auth.id, question.topic_id, current_attempt)" method="post">
             <input required="" class="radioBtn" v-bind:id="'radio'+ index" type="radio" v-model="result.user_answer" value="A" aria-checked="false"> <span>{{question.a}}</span><br>

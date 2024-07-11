@@ -74,7 +74,9 @@ class MainQuizController extends Controller
                 $q_filter = $q_filter->flatten();
                 $questions = $all_questions->diff($q_filter);
                 $questions = $questions->flatten();
-                $questions = $questions->shuffle();
+                if($topic->type='challenges'){
+                    $questions = $questions->shuffle();
+                }
                 return response()->json(["questions" => $questions, "auth"=>$auth, "topic" => $topic->id]);
             }
             $questions = collect();

@@ -37,15 +37,26 @@
                   {!! Form::number('per_q_mark', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Per Question Mark', 'required' => 'required']) !!}
                   <small class="text-danger">{{ $errors->first('per_q_mark') }}</small>
                 </div>
+                <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+
+                  {!! Form::label('Paper Type') !!}
+                  <span class="required">*</span>
+                  <select name="type" id="type" class="select2 form-control">
+                    <option value="">Select Paper type</option>
+                      <option value="past_papers">Past Papers</option>
+                      <option value="challenges">Challenges</option>
+                  </select>
+                  <small class="text-danger">{{ $errors->first('type') }}</small>
+                </div>
                 <div class="form-group{{ $errors->has('subject_id') ? ' has-error' : '' }}">
-					{!! Form::label('subject_id', 'Subject') !!}
-					<span class="required">*</span>
-					<select name="subject_id" id="subject_id" class="select2 form-control">
-						<option value="">Select Subject</option>
-						@foreach($subjects as $subject)
-							<option value="{{ $subject->id }}">{{ $subject->title }}</option>
-						@endforeach
-					</select>
+                {!! Form::label('subject_id', 'Subject') !!}
+                <span class="required">*</span>
+                <select name="subject_id" id="subject_id" class="select2 form-control">
+                  <option value="">Select Subject</option>
+                  @foreach($subjects as $subject)
+                    <option value="{{ $subject->id }}">{{ $subject->title }}</option>
+                  @endforeach
+                </select>
 					<small class="text-danger">{{ $errors->first('subject_id') }}</small>
 				</div>
                 <div class="form-group{{ $errors->has('timer') ? ' has-error' : '' }}">
