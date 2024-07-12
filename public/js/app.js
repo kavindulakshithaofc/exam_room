@@ -2261,7 +2261,7 @@ var render = function render() {
     }, [_c("div", {
       staticClass: "row"
     }, [_c("div", {
-      staticClass: "col-md-6"
+      staticClass: "col-md-12"
     }, [_c("blockquote", [_vm._v("\n          Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n        ")]), _vm._v(" "), _c("h2", {
       staticClass: "question"
     }, [_vm._v("Q.  " + _vm._s(question.question))]), _vm._v(" "), _c("form", {

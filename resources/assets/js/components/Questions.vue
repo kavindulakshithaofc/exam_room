@@ -2,7 +2,7 @@
   <div class="main-questions">
     <div class="myQuestion" v-for="(question, index) in questions">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <blockquote>
             Total Questions &nbsp;&nbsp;{{ index+1 }} / {{questions.length}}
           </blockquote>
