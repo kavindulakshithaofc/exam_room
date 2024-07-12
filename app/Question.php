@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Traits\Creatable;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+  use Creatable;
     protected $fillable = [
       'topic_id',
       'question',

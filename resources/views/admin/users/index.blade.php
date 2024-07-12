@@ -250,7 +250,7 @@
                                                             class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                                                             {!! Form::label('role', 'User Role') !!}
                                                             <span class="required">*</span>
-                                                            {!! Form::select('role', ['S' => 'Student', 'A' => 'Administrator'], null, [
+                                                            {!! Form::select('role', ['S' => 'Student', 'A' => 'Administrator', 'T'=>'Teacher'], null, [
                                                                 'class' => 'form-control select2',
                                                                 'required' => 'required',
                                                             ]) !!}

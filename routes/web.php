@@ -180,12 +180,13 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 });
 
 
-Route::group(['middleware'=> 'isadmin'], function(){
 
-  Route::get('/print/report/aspdf/{id}/{userid}','AllReportController@pdfreport')->name('pdf.report');
+Route::get('/print/report/aspdf/{id}/{userid}','AllReportController@pdfreport')->name('pdf.report');
 
-  Route::delete('delete/sheet/quiz/{id}','TopicController@deleteperquizsheet')->name('del.per.quiz.sheet');
+Route::delete('delete/sheet/quiz/{id}','TopicController@deleteperquizsheet')->name('del.per.quiz.sheet');
 
+Route::group(['middleware'=> 'can:teacher'], function(){
+  
   Route::get('/admin', function()
   {
     $user = User::where('role', '!=', 'A')->count();
@@ -195,11 +196,8 @@ Route::group(['middleware'=> 'isadmin'], function(){
     return view('admin.dashboard', compact('user', 'question', 'quiz', 'user_latest'));
     //remove the answer line comment
     // return view('admin.dashboard', compact('user', 'question', 'answer', 'quiz', 'user_latest'));
-
+    
   });
-
-  Route::delete('reset/response/{topicid}/{userid}','AllReportController@delete');
-
   Route::resource('/admin/all_reports', 'AllReportController');
   Route::resource('/admin/top_report', 'TopReportController');
   Route::resource('/admin/topics', 'TopicController');
@@ -207,6 +205,10 @@ Route::group(['middleware'=> 'isadmin'], function(){
   Route::resource('/admin/questions', 'QuestionsController');
   Route::post('/admin/questions/import_questions', 'QuestionsController@importExcelToDB')->name('import_questions');
   Route::resource('/admin/answers', 'AnswersController');
+});
+Route::group(['middleware'=> 'isadmin'], function(){
+  Route::delete('reset/response/{topicid}/{userid}','AllReportController@delete');
+
   Route::resource('/admin/settings', 'SettingController');
 
   Route::post('/admin/users/destroy', 'DestroyAllController@AllUsersDestroy');

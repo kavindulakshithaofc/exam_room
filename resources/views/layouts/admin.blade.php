@@ -141,11 +141,9 @@
                     </div>
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">Main Sections</li>
-                        @if ($auth->role == 'A')
+                        @can('teacher')
                             <li class="{{ $dash ?? '' }}"><a href="{{ url('/admin') }}" title="Dashboard"><i
-                                        class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-                            <li class="{{ $users ?? '' }}"><a href="{{ url('/admin/users') }}" title="Students"><i
-                                        class="fa fa-users"></i> <span>Students</span></a></li>
+                                    class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                             <li class="{{ $subjects ?? '' }}"><a href="{{ url('admin/subjects') }}" title="Subjects"><i
                                         class="fa fa-list"></i> <span>Subjects</span></a></li>
                             <li class="{{ $quiz ?? '' }}"><a href="{{ url('admin/topics') }}" title="Quiz"><i
@@ -159,7 +157,11 @@
                             <li class="{{ $top_re ?? '' }}"><a href="{{ url('/admin/top_report') }}"
                                     title="Top Student Report"><i class="fa fa-user"></i> <span>Top Student
                                         Report</span></a></li>
+                        @endcan
+                        @if ($auth->role == 'A')
 
+                        <li class="{{ $users ?? '' }}"><a href="{{ url('/admin/users') }}" title="Students"><i
+                            class="fa fa-users"></i> <span>Students</span></a></li>
                             <li class="{{ $delete ?? '' }}"><a href="{{ url('/admin/user-requests') }}"
                                     title="User Delete Requests"><i class="fa fa-user-circle-o"></i> <span>User Delete
                                         Requests</span></a></li>

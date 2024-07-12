@@ -2,13 +2,23 @@
 
 namespace App;
 
+use App\Traits\Creatable;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
+  use Creatable;
     protected $fillable = [
       'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject_id', 'attempts' , 'type'
     ];
+
+
+    public function scopeMy($query){
+        return $query->when(auth()->user()->can('teacher_only'), function($query){
+          return $query->where('created_by', auth()->id());
+        });
+    }
 
     public function question(){
       return $this->hasOne('App\Question');
@@ -23,8 +33,5 @@ class Topic extends Model
          ->withPivot('amount','transaction_id', 'status')
         ->withTimestamps();
     }
-
-	public function subject(){
-	  return $this->belongsTo('App\Subject');
-	}
+    
 }

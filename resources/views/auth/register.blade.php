@@ -36,6 +36,12 @@
           {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'eg: foo@bar.com']) !!}
           <small class="text-danger">{{ $errors->first('email') }}</small>
         </div>
+        <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
+                  {!! Form::label('role', 'User Role') !!}
+                  <span class="required">*</span>
+                  {!! Form::select('role', ['S' => 'Student', 'T'=>'Teacher'], null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+                  <small class="text-danger">{{ $errors->first('role') }}</small>
+              </div>
 
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
           {!! Form::label('password', 'Password') !!}

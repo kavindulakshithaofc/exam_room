@@ -16,7 +16,7 @@ class SubjectController extends Controller
     public function index(Request $request)
     {
 		if($request->ajax()){
-			$subjects = \DB::table('subjects')->select('id','title');
+			$subjects = \DB::table('subjects')->select('id','title')->when(auth()->user()->can('teacher_only'), function($query){ $query->where('created_by', auth()->id());});
 
             return DataTables::of($subjects)
             ->addIndexColumn()

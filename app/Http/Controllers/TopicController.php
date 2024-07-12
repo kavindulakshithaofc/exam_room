@@ -18,7 +18,7 @@ class TopicController extends Controller
         // $topics = Topic::all();
 
 		if($request->ajax()){
-			  $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id');
+			  $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id')->when(auth()->user()->can('teacher_only'), function($query){ $query->where('topics.created_by', auth()->id());});
 
             return DataTables::of($topics)
             ->addIndexColumn('id')

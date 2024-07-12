@@ -6,6 +6,7 @@ use App\Imports\QuestionsImport;
 use Illuminate\Http\Request;
 use App\Topic;
 use App\Question;
+use App\Traits\Creatable;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,10 +18,11 @@ class QuestionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index(Request $request)
     {
         $topics = Topic::all();
-        $questions = Question::all();
+        $questions = Question::where('created_by', auth()->id());
         return view('admin.questions.index', compact('questions', 'topics'));
     }
 

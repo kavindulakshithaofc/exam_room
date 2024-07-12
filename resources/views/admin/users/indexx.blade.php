@@ -11,7 +11,7 @@
 
 @section('content')
 @include('message')
-  @if ($auth->role == 'A')
+  @if (auth()->user()->role == 'A')
     <div class="margin-bottom">
       <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">Add Student</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Students</button>
