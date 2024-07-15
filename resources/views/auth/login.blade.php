@@ -91,8 +91,8 @@
           </div>
 
           <div class="form-group">
-            <button type="submit" class="btn btn-wave"> Login </button>
-            <p class="messege text-center">
+            <button type="submit" class="btn btn-wave learn-more"> Login </button>
+            <p class="messege text-center login">
               Not registered? 
               <a href="{{url('/register')}}" title="Create An Account">Create an account</a>
             </p>
