@@ -8740,3 +8740,22 @@ button.btn-wave:active::before {
   padding: 20px 0;
 }
 
+#lights {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#red-light, #green-light {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+#red-light {
+  background-color: red;
+}
+
+#green-light {
+  background-color: green;
+}

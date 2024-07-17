@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.quiz')
 
 @section('head')
   <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -7,6 +7,7 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" rel="stylesheet">
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     window.Laravel =  <?php echo json_encode([
         'csrfToken' => csrf_token(),
@@ -20,7 +21,6 @@
       <div class="container">
         @if ($setting)
           <a href="{{ url('/') }}" title="{{$setting->welcome_txt}}">
-            <img src="{{asset('/images/logo/'. $setting->logo)}}" class="img-responsive" alt="{{$setting->welcome_txt}}">
           </a>
         @endif
       </div>
@@ -57,7 +57,7 @@
 
 <div class="container">
   @if ($auth)
-    <div class="home-main-block">
+    
       <?php
 	//   dd($current_attempt);
         $users =  App\Answer::where('topic_id',$topic->id)->where('user_id',Auth::user()->id)->first();
@@ -66,6 +66,12 @@
       ?>
 <!-- dfdsfdf -->
 
+<!-- red light & green light -->
+        <div class="home-main-block">
+              <div id="lights" style="display: flex; align-items: center; gap: 10px;">
+          <div id="red-light" style="width: 40px; height: 40px; border-radius: 50%; background-color: red; display: none;"></div>
+          <div id="green-light" style="width: 40px; height: 40px; border-radius: 50%; background-color: green;"></div>
+        </div>
 	@if(empty($que))
         <div class="alert alert-danger">
           <p>
@@ -201,6 +207,33 @@
      // end all controller is disable
  </script>
 
+ <script>
+    // Check if jQuery is loaded
+    if (typeof jQuery == 'undefined') {
+      alert('jQuery is not loaded');
+    } else {
+      alert('jQuery is loaded');
+    }
+
+    $(document).ready(function() {
+      alert('Document is ready'); // Debugging statement
+
+      // Function to update the lights
+      function changeLightToRed() {
+        alert('Changing light to red'); // Debugging statement
+        $('#green-light').hide();
+        $('#red-light').show();
+      }
+
+      // Initial light state is green
+      $('#red-light').hide();
+      $('#green-light').show();
+      alert('Initial state set to green'); // Debugging statement
+
+      // Set a timeout to change the light to red after 3 seconds
+      setTimeout(changeLightToRed, 3000);
+    });
+  </script>
 
 @endif
 @endsection
