@@ -22,7 +22,13 @@ class Question extends Model
       'answer_exp',
       'question_img',
       'question_video_link',
-      'question_audio'
+      'question_audio',
+      'a_file',
+      'b_file',
+      'c_file',
+      'd_file',
+      'e_file',
+      'f_file'
     ];
 
     public function answers() {

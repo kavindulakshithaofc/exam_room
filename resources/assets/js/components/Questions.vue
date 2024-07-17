@@ -28,15 +28,34 @@
 
           <form class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question.id, question.answer, auth.id, question.topic_id, current_attempt)" method="post">
             <input required="" class="radioBtn" v-bind:id="'radio'+ index" type="radio" v-model="result.user_answer" value="A" aria-checked="false"> <span>{{question.a}}</span><br>
+            
+            <div v-if="question.a_file != null">
+            <img :src="'../images/questions/' + question.a_file" >
+            </div>
             <input required="" class="radioBtn" v-bind:id="'radio'+ index+1" type="radio" v-model="result.user_answer" value="B" aria-checked="false"> <span>{{question.b}}</span><br>
+            <div v-if="question.b_file != null">
+            <img :src="'../images/questions/' + question.b_file" >
+            </div>
             <input required="" class="radioBtn" v-bind:id="'radio'+ index+2" type="radio" v-model="result.user_answer" value="C" aria-checked="false"> <span>{{question.c}}</span><br>
+            <div v-if="question.c_file != null">
+            <img :src="'../images/questions/' + question.c_file" >
+            </div>
             <input required="" class="radioBtn" v-bind:id="'radio'+ index+3" type="radio" v-model="result.user_answer" value="D" aria-checked="false"> <span>{{question.d}}</span><br>
+            <div v-if="question.d_file != null">
+            <img :src="'../images/questions/' + question.d_file" >
+            </div>
             <div v-if="question.e != null">
              <input required="" class="radioBtn" v-bind:id="'radio'+ index+4" type="radio" v-model="result.user_answer" value="E" aria-checked="false"> <span>{{question.e}}</span><br>
+             <div v-if="question.e_file != null">
+            <img :src="'../images/questions/' + question.e_file" >
+            </div>
              </div>
 
               <div v-if="question.f != null">
                 <input class="radioBtn" v-bind:id="'radio'+ index+5" type="radio" v-model="result.user_answer" value="F" aria-checked="false"> <span>{{question.f}}</span><br>
+                <div v-if="question.f_file != null">
+                  <img :src="'../images/questions/' + question.f_file" >
+                </div>
               </div>
 
             <div class="row">

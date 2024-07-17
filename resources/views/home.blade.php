@@ -217,7 +217,7 @@
                         @if ($setting)
                             <h1 class="main-block-heading text-center">{{ $setting->welcome_txt }}</h1>
                         @endif
-                        <blockquote>
+                        <blockquote class="bg-success">
                             Please <a href="{{ route('login') }}" title="Login">Login</a> To Start Quiz >>>
                         </blockquote>
                     </div>

@@ -2299,7 +2299,11 @@ var render = function render() {
           return _vm.$set(_vm.result, "user_answer", "A");
         }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.a))]), _c("br"), _vm._v(" "), _c("input", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.a))]), _c("br"), _vm._v(" "), question.a_file != null ? _c("div", [_c("img", {
+      attrs: {
+        src: "../images/questions/" + question.a_file
+      }
+    })]) : _vm._e(), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2322,7 +2326,11 @@ var render = function render() {
           return _vm.$set(_vm.result, "user_answer", "B");
         }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.b))]), _c("br"), _vm._v(" "), _c("input", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.b))]), _c("br"), _vm._v(" "), question.b_file != null ? _c("div", [_c("img", {
+      attrs: {
+        src: "../images/questions/" + question.b_file
+      }
+    })]) : _vm._e(), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2345,7 +2353,11 @@ var render = function render() {
           return _vm.$set(_vm.result, "user_answer", "C");
         }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.c))]), _c("br"), _vm._v(" "), _c("input", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.c))]), _c("br"), _vm._v(" "), question.c_file != null ? _c("div", [_c("img", {
+      attrs: {
+        src: "../images/questions/" + question.c_file
+      }
+    })]) : _vm._e(), _vm._v(" "), _c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2368,7 +2380,11 @@ var render = function render() {
           return _vm.$set(_vm.result, "user_answer", "D");
         }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.d))]), _c("br"), _vm._v(" "), question.e != null ? _c("div", [_c("input", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.d))]), _c("br"), _vm._v(" "), question.d_file != null ? _c("div", [_c("img", {
+      attrs: {
+        src: "../images/questions/" + question.d_file
+      }
+    })]) : _vm._e(), _vm._v(" "), question.e != null ? _c("div", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2391,7 +2407,11 @@ var render = function render() {
           return _vm.$set(_vm.result, "user_answer", "E");
         }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.e))]), _c("br")]) : _vm._e(), _vm._v(" "), question.f != null ? _c("div", [_c("input", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.e))]), _c("br"), _vm._v(" "), question.e_file != null ? _c("div", [_c("img", {
+      attrs: {
+        src: "../images/questions/" + question.e_file
+      }
+    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), question.f != null ? _c("div", [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
@@ -2413,7 +2433,11 @@ var render = function render() {
           return _vm.$set(_vm.result, "user_answer", "F");
         }
       }
-    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.f))]), _c("br")]) : _vm._e(), _vm._v(" "), _vm._m(0, true)])]), _vm._v(" "), _c("div", {
+    }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.f))]), _c("br"), _vm._v(" "), question.f_file != null ? _c("div", [_c("img", {
+      attrs: {
+        src: "../images/questions/" + question.f_file
+      }
+    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0, true)])]), _vm._v(" "), _c("div", {
       staticClass: "col-md-6"
     }, [question.question_img != null || question.question_video_link != null || question.question_audio != null ? _c("div", {
       staticClass: "question-block-tabs"

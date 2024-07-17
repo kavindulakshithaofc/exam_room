@@ -57,11 +57,23 @@
                   {!! Form::text('a', null, ['class' => 'form-control', 'placeholder' => 'Please Enter A Option', 'required' => 'required']) !!}
                   <small class="text-danger">{{ $errors->first('a') }}</small>
                 </div>
+                <div class="form-group{{ $errors->has('a_file') ? ' has-error' : '' }}">
+                  {!! Form::label('a_file', 'A Option Image') !!}
+                  {!! Form::file('a_file',['accept'=>'image/*']) !!}
+                  <small class="text-danger">{{ $errors->first('a_file') }}</small>
+                  <p class="help">Please Choose Only .JPG, .JPEG and .PNG</p>
+                </div>
                 <div class="form-group{{ $errors->has('b') ? ' has-error' : '' }}">
                   {!! Form::label('b', 'B - Option') !!}
                   <span class="required">*</span>
                   {!! Form::text('b', null, ['class' => 'form-control', 'placeholder' => 'Please Enter B Option', 'required' => 'required']) !!}
                   <small class="text-danger">{{ $errors->first('b') }}</small>
+                </div>
+                <div class="form-group{{ $errors->has('b_file') ? ' has-error' : '' }}">
+                  {!! Form::label('b_file', 'B Option Image') !!}
+                  {!! Form::file('b_file',['accept'=>'image/*']) !!}
+                  <small class="text-danger">{{ $errors->first('b_file') }}</small>
+                  <p class="help">Please Choose Only .JPG, .JPEG and .PNG</p>
                 </div>
                 <div class="form-group{{ $errors->has('c') ? ' has-error' : '' }}">
                   {!! Form::label('c', 'C - Option') !!}
@@ -69,11 +81,23 @@
                   {!! Form::text('c', null, ['class' => 'form-control', 'placeholder' => 'Please Enter C Option', 'required' => 'required']) !!}
                   <small class="text-danger">{{ $errors->first('c') }}</small>
                 </div>
+                <div class="form-group{{ $errors->has('c_file') ? ' has-error' : '' }}">
+                  {!! Form::label('c_file', 'C Option Image') !!}
+                  {!! Form::file('c_file',['accept'=>'image/*']) !!}
+                  <small class="text-danger">{{ $errors->first('c_file') }}</small>
+                  <p class="help">Please Choose Only .JPG, .JPEG and .PNG</p>
+                </div>
                 <div class="form-group{{ $errors->has('d') ? ' has-error' : '' }}">
                   {!! Form::label('d', 'D - Option') !!}
                   <span class="required">*</span>
                   {!! Form::text('d', null, ['class' => 'form-control', 'placeholder' => 'Please Enter D Option', 'required' => 'required']) !!}
                   <small class="text-danger">{{ $errors->first('d') }}</small>
+                </div>
+                <div class="form-group{{ $errors->has('d_file') ? ' has-error' : '' }}">
+                  {!! Form::label('d_file', 'D Option Image') !!}
+                  {!! Form::file('d_file',['accept'=>'image/*']) !!}
+                  <small class="text-danger">{{ $errors->first('d_file') }}</small>
+                  <p class="help">Please Choose Only .JPG, .JPEG and .PNG</p>
                 </div>
 
                   <div class="form-group{{ $errors->has('e') ? ' has-error' : '' }}">
@@ -81,11 +105,23 @@
                   {!! Form::text('e', null, ['class' => 'form-control', 'placeholder' => 'Please Enter E Option']) !!}
                   <small class="text-danger">{{ $errors->first('e') }}</small>
                   </div>
+                  <div class="form-group{{ $errors->has('e_file') ? ' has-error' : '' }}">
+                    {!! Form::label('e_file', 'E Option Image') !!}
+                    {!! Form::file('e_file',['accept'=>'image/*']) !!}
+                    <small class="text-danger">{{ $errors->first('e_file') }}</small>
+                    <p class="help">Please Choose Only .JPG, .JPEG and .PNG</p>
+                  </div>
 
                   <div class="form-group{{ $errors->has('f') ? ' has-error' : '' }}">
                   {!! Form::label('f', 'F - Option') !!}
                   {!! Form::text('f', null, ['class' => 'form-control', 'placeholder' => 'Please Enter F Option']) !!}
                   <small class="text-danger">{{ $errors->first('f') }}</small>
+                  </div>
+                  <div class="form-group{{ $errors->has('f_file') ? ' has-error' : '' }}">
+                    {!! Form::label('f_file', 'F Option Image') !!}
+                    {!! Form::file('f_file',['accept'=>'image/*']) !!}
+                    <small class="text-danger">{{ $errors->first('f_file') }}</small>
+                    <p class="help">Please Choose Only .JPG, .JPEG and .PNG</p>
                   </div>
 
               </div>
