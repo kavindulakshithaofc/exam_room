@@ -18,14 +18,14 @@ class QuestionsController extends Controller
 	*
 	* @return \Illuminate\Http\Response
 	*/
-	
+
 	public function index(Request $request)
 	{
 		$topics = Topic::all();
 		$questions = Question::where('created_by', auth()->id());
 		return view('admin.questions.index', compact('questions', 'topics'));
 	}
-	
+
 	/**
 	* Show the form for creating a new resource.
 	*
@@ -35,7 +35,7 @@ class QuestionsController extends Controller
 	{
 		//
 	}
-	
+
 	/**
 	* Import a newly created resource in storage.
 	*
@@ -54,12 +54,12 @@ class QuestionsController extends Controller
 'extension' => 'required|in:xlsx,xls,csv',
 				]
 			);
-			
-			if ($validator->fails()) 
+
+			if ($validator->fails())
 			{
 				return back()->withErrors('deleted','Invalid file format Please use xlsx and csv file format !');
 			}
-			
+
 			if($request->hasFile('question_file'))
 			{
 				// return $request->file('question_file');
@@ -68,7 +68,7 @@ class QuestionsController extends Controller
 			}
 			return back()->with('deleted', 'Request data does not have any files to import');
 		}
-		
+
 		/**
 		* Store a newly created resource in storage.
 		*
@@ -77,94 +77,94 @@ class QuestionsController extends Controller
 		*/
 		public function store(Request $request)
 		{
-			
+
 			$request->validate([
-'topic_id' => 'required',
-'question' => 'required',
-'a' => 'required',
-'b' => 'required',
-'c' => 'required',
-'d' => 'required',
-'a_file' => 'sometimes|image|mimes:jpg,jpeg,png',
-'b_file' => 'sometimes|image|mimes:jpg,jpeg,png',
-'c_file' => 'sometimes|image|mimes:jpg,jpeg,png',
-'d_file' => 'sometimes|image|mimes:jpg,jpeg,png',
-'answer' => 'sometimes|image|mimes:jpg,jpeg,png',
-'question_img' => 'sometimes|image|mimes:jpg,jpeg,png'
+				'topic_id' => 'required',
+				'question' => 'required',
+				'a' => 'required',
+				'b' => 'required',
+				'c' => 'required',
+				'd' => 'required',
+				'a_file' => 'sometimes|image|mimes:jpg,jpeg,png',
+				'b_file' => 'sometimes|image|mimes:jpg,jpeg,png',
+				'c_file' => 'sometimes|image|mimes:jpg,jpeg,png',
+				'd_file' => 'sometimes|image|mimes:jpg,jpeg,png',
+				'answer' => 'required',
+				'question_img' => 'sometimes|image|mimes:jpg,jpeg,png'
 			]);
-			
+
 			// return $request;
-			
+
 			$input = $request->all();
-			
+
 			if ($file = $request->file('question_img')) {
-				
+
 				$name = 'question_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['question_img'] = $name;
-				
+
 			}
-			
+
 			if ($file = $request->file('a_file')) {
-				
+
 				$name = 'a_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['a_file'] = $name;
-				
+
 			}
-			
+
 			if ($file = $request->file('b_file')) {
-				
+
 				$name = 'b_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['b_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('c_file')) {
-				
+
 				$name = 'c_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['c_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('d_file')) {
-				
+
 				$name = 'd_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['d_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('e_file')) {
-				
+
 				$name = 'e_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['e_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('f_file')) {
-				
+
 				$name = 'f_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['f_file'] = $name;
-				
+
 			}
-			
+
 			try{
 				Question::create($input);
 				return back()->with('added', 'Question has been added');
 			}catch(\Exception $e){
 				return back()->with('deleted',$e->getMessage());
 			}
-			
+
 		}
-		
+
 		/**
 		* Display the specified resource.
 		*
@@ -174,9 +174,9 @@ class QuestionsController extends Controller
 		public function show(request $request,$id)
 		{
 			$topic = Topic::findOrFail($id);
-			
+
 			$questions = \DB::table('questions')->where('topic_id', $topic->id)->select('id','question','a', 'a_file','b', 'b_file','c', 'c_file','d', 'd_file','e', 'e_file','f', 'f_file','answer');
-			
+
 			if($request->ajax())
 			{
 				return DataTables::of($questions)
@@ -205,15 +205,15 @@ class QuestionsController extends Controller
 				->addColumn('answer',function($row){
 					return $row->answer;
 				})
-				
+
 				->addColumn('action', function($row){
-					
+
 					$btn = '<div class="admin-table-action-block">
-          
+
 <a href="' . route('questions.edit', $row->id) . '" data-toggle="tooltip" data-original-title="Edit" class="btn btn-primary btn-floating"><i class="fa fa-pencil"></i></a>
-          
+
 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $row->id . '"><i class="fa fa-trash"></i> </button></div>';
-					
+
 					$btn .= '<div id="deleteModal' . $row->id . '" class="delete-modal modal fade" role="dialog">
 <div class="modal-dialog modal-sm">
 <!-- Modal content-->
@@ -237,7 +237,7 @@ class QuestionsController extends Controller
 </div>
 </div>
 </div>';
-					
+
 					return $btn;
 				})
 				->rawColumns(['question','a','b','c','d','e','f','answer','action'])
@@ -245,7 +245,7 @@ class QuestionsController extends Controller
 			}
 			return view('admin.questions.show', compact('topic', 'questions'));
 		}
-		
+
 		/**
 		* Show the form for editing the specified resource.
 		*
@@ -258,7 +258,7 @@ class QuestionsController extends Controller
 			$topic = Topic::where('id',$question->topic_id)->first();
 			return view('admin.questions.edit',compact('question','topic'));
 		}
-		
+
 		/**
 		* Update the specified resource in storage.
 		*
@@ -283,72 +283,72 @@ class QuestionsController extends Controller
 				'answer' => 'required',
 				'question_img' => 'sometimes|image|mimes:jpg,jpeg,png'
 			]);
-			
+
 			$input = $request->all();
-			
+
 			if ($file = $request->file('question_img')) {
-				
+
 				$name = 'question_'.time().$file->getClientOriginalName();
-				
+
 				if($question->question_img != null) {
 					unlink(public_path().'/images/questions/'.$question->question_img);
 				}
-				
+
 				$file->move('images/questions/', $name);
 				$input['question_img'] = $name;
-				
+
 			}
 			if ($file = $request->file('a_file')) {
-				
+
 				$name = 'a_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['a_file'] = $name;
-				
+
 			}
-			
+
 			if ($file = $request->file('b_file')) {
-				
+
 				$name = 'b_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['b_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('c_file')) {
-				
+
 				$name = 'c_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['c_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('d_file')) {
-				
+
 				$name = 'd_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['d_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('e_file')) {
-				
+
 				$name = 'e_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['e_file'] = $name;
-				
+
 			}
 			if ($file = $request->file('f_file')) {
-				
+
 				$name = 'f_file_'.time().$file->getClientOriginalName();
-				
+
 				$file->move('images/questions/', $name);
 				$input['f_file'] = $name;
-				
+
 			}
-			
-			
+
+
 			try
 			{
 				$question->update($input);
@@ -358,10 +358,10 @@ class QuestionsController extends Controller
 			{
 				return back()->with('deleted',$e->getMessage());
 			}
-			
-			
+
+
 		}
-		
+
 		/**
 		* Remove the specified resource from storage.
 		*
@@ -371,7 +371,7 @@ class QuestionsController extends Controller
 		public function destroy($id)
 		{
 			$question = Question::find($id);
-			
+
 			if ($question->question_img != null) {
 				unlink(public_path().'/images/questions/'.$question->question_img);
 			}
@@ -383,7 +383,6 @@ class QuestionsController extends Controller
 			{
 				return back()->with('deleted',$e->getMessage());
 			}
-			
+
 		}
 	}
-	
