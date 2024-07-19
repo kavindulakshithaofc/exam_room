@@ -62,31 +62,33 @@ class MainQuizController extends Controller
           $topic = Topic::findOrFail($id);
           $auth = Auth::user();
           if ($auth) {
-            if ($answers = Answer::where('user_id', $auth->id)->get()) {
-                $all_questions = collect();
-                $q_filter = collect();
+			$questions = Question::where('topic_id', $topic->id)->get();
+			$answers = Answer::where('user_id', $auth->id)->where('topic_id', $topic->id)->get();
+			$current_attempt = 1;
+            if ($answers) {
                 foreach ($answers as $answer) {
-                  $q_id = $answer->question_id;
-                  $q_filter = $q_filter->push(Question::where('id', $q_id)->get());
+					$questions->where('id', $answer->question_id)->first()->user_answer = $answer->user_answer;
+					$current_attempt = $answer->current_attempt;
                 }
-                $all_questions = $all_questions->push(Question::where('topic_id', $topic->id)->get());
-                $all_questions = $all_questions->flatten();
-                $q_filter = $q_filter->flatten();
-                $questions = $all_questions->diff($q_filter);
-                $questions = $questions->flatten();
-                if($topic->type == 'challenges'){
-                    $questions = $questions->shuffle();
-                }
-                return response()->json(["questions" => $questions, "auth"=>$auth, "topic" => $topic->id]);
+                // $all_questions = collect();
+                // $all_questions = $all_questions->push(Question::where('topic_id', $topic->id)->get());
+                // $all_questions = $all_questions->flatten();
+                // // $q_filter = $q_filter->flatten();
+                // // $questions = $all_questions->diff($q_filter);
+                // $questions = $all_questions->flatten();
+                // if($topic->type == 'challenges'){
+                //     $questions = $questions->shuffle();
+                // }
+                // return response()->json(["questions" => $questions, "auth"=>$auth, "topic" => $topic->id]);
             }
-            $questions = collect();
-            $questions = Question::where('topic_id', $topic->id)->get();
-			$questions = $questions->flatten();
+            // $questions = collect();
+            // $questions = Question::where('topic_id', $topic->id)->get();
+			// $questions = $questions->flatten();
 			if ($topic->type == 'challenges') {
 				$questions = $questions->shuffle();
 			}
-			$current_attempt = Answer::where('topic_id', $topic->id)->where('user_id', auth()->id())->first()->current_attempt ?? 1;
-            return response()->json(["questions" => $questions, "auth"=>$auth, 'current_attempt' => $current_attempt]);
+			// $current_attempt = Answer::where('topic_id', $topic->id)->where('user_id', auth()->id())->first()->current_attempt ?? 1;
+            return response()->json(["questions" => $questions, "auth"=>$auth, 'current_attempt' => $current_attempt, "topic" => $topic->id]);
           }
           return redirect('/');
     }

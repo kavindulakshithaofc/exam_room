@@ -26,42 +26,48 @@
             </div>
           </div> -->
 
-          <form class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question.id, question.answer, auth.id, question.topic_id, current_attempt)" method="post">
-            <input required="" class="radioBtn" v-bind:id="'radio'+ index" type="radio" v-model="result.user_answer" value="A" aria-checked="false"> <span>{{question.a}}</span><br>
-            
+          <form v-bind:id="'myform'+ index" class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question, auth.id)" method="post">
+            <input required="" class="radioBtn" v-bind:id="'radio'+ index + 0" type="radio" v-model="question.user_answer" value="A" aria-checked="false"> <span>{{question.a}}</span><br>
+
             <div v-if="question.a_file != null">
             <img :src="'../images/questions/' + question.a_file" >
             </div>
-            <input required="" class="radioBtn" v-bind:id="'radio'+ index+1" type="radio" v-model="result.user_answer" value="B" aria-checked="false"> <span>{{question.b}}</span><br>
+            <input required="" class="radioBtn" v-bind:id="'radio'+ index+1" type="radio" v-model="question.user_answer" value="B" aria-checked="false"> <span>{{question.b}}</span><br>
             <div v-if="question.b_file != null">
             <img :src="'../images/questions/' + question.b_file" >
             </div>
-            <input required="" class="radioBtn" v-bind:id="'radio'+ index+2" type="radio" v-model="result.user_answer" value="C" aria-checked="false"> <span>{{question.c}}</span><br>
+            <input required="" class="radioBtn" v-bind:id="'radio'+ index+2" type="radio" v-model="question.user_answer" value="C" aria-checked="false"> <span>{{question.c}}</span><br>
             <div v-if="question.c_file != null">
             <img :src="'../images/questions/' + question.c_file" >
             </div>
-            <input required="" class="radioBtn" v-bind:id="'radio'+ index+3" type="radio" v-model="result.user_answer" value="D" aria-checked="false"> <span>{{question.d}}</span><br>
+            <input required="" class="radioBtn" v-bind:id="'radio'+ index+3" type="radio" v-model="question.user_answer" value="D" aria-checked="false"> <span>{{question.d}}</span><br>
             <div v-if="question.d_file != null">
             <img :src="'../images/questions/' + question.d_file" >
             </div>
             <div v-if="question.e != null">
-             <input required="" class="radioBtn" v-bind:id="'radio'+ index+4" type="radio" v-model="result.user_answer" value="E" aria-checked="false"> <span>{{question.e}}</span><br>
+             <input required="" class="radioBtn" v-bind:id="'radio'+ index+4" type="radio" v-model="question.user_answer" value="E" aria-checked="false"> <span>{{question.e}}</span><br>
              <div v-if="question.e_file != null">
             <img :src="'../images/questions/' + question.e_file" >
             </div>
              </div>
 
               <div v-if="question.f != null">
-                <input class="radioBtn" v-bind:id="'radio'+ index+5" type="radio" v-model="result.user_answer" value="F" aria-checked="false"> <span>{{question.f}}</span><br>
+                <input class="radioBtn" v-bind:id="'radio'+ index+5" type="radio" v-model="question.user_answer" value="F" aria-checked="false"> <span>{{question.f}}</span><br>
                 <div v-if="question.f_file != null">
                   <img :src="'../images/questions/' + question.f_file" >
                 </div>
               </div>
 
             <div class="row">
-              <div class="col-md-6 col-xs-8">
+              <div class="col-md-6 col-xs-8 flex">
                 <button type="submit" class="btn btn-wave btn-block nextbtn">Next</button>
+                <button type="button" class="btn btn-wave btn-block prebtn">Prev</button>
               </div>
+			  <div>
+			   <div v-for="(q, page) in questions">
+					<button type="button" :class="page === index ? 'btn-lg' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
+			   </div>
+			  </div>
             </div>
           </form>
         </div>
@@ -112,7 +118,7 @@ export default {
         question_id: '',
         answer: '',
         user_id: '',
-        user_answer: 0,
+        user_answer: null,
         topic_id: '',
 		current_attempt: 1
       },
@@ -136,10 +142,17 @@ export default {
       });
     },
 
-    createQuestion(id, ans, user_id, topic_id) {
-      this.result.question_id = id;
-      this.result.answer = ans;
+	changePage(page) {
+		$('.myQuestion').removeClass('active');
+		$('.myQuestion').eq(page).addClass('active');
+
+	},
+
+    createQuestion(question, user_id) {
+      this.result.question_id = question.id;
+      this.result.answer = question.answer;
       this.result.user_id = user_id;
+      this.result.user_answer = question.user_answer;
       this.result.current_attempt = this.$props.current_attempt;
       this.result.topic_id = this.$props.topic_id;
       this.$http.post(`${this.$props.topic_id}/quiz`, this.result).then((response) => {
@@ -148,8 +161,6 @@ export default {
       }).catch((e) => {
         console.log(e);
       });
-      this.result.user_answer = 0;
-      this.result.topic_id = '';
     }
   }
 }

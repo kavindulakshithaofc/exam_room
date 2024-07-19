@@ -57,7 +57,7 @@
 
 <div class="container">
   @if ($auth)
-    
+
       <?php
 	//   dd($current_attempt);
         $users =  App\Answer::where('topic_id',$topic->id)->where('user_id',Auth::user()->id)->first();
@@ -129,13 +129,14 @@
               var e = $(".myQuestion.active");
               $(e).removeClass("active"), 0 == $(e).next().length ? (Cookies.remove("time"), Cookies.set("done", "Your Quiz is Over...!", {
                   expires: 1
-              }), location.href = "{{$topic->id}}/finish") : ($(e).next().addClass("active"), $(".myForm")[0].reset(),
+              }), location.href = "{{$topic->id}}/finish") : ($(e).next().addClass("active"),
               $(".prebtn").attr("disabled", false))
           }),
           $(".prebtn").click(function() {
               var e = $(".myQuestion.active");
               $(e).removeClass("active"),
-              $(e).prev().addClass("active"), $(".myForm")[0].reset()
+              $(e).prev().addClass("active"),
+			//   $(".myForm")[0].reset()
               $(".myQuestion:first-child").hasClass("active") ?  $(".prebtn").attr("disabled", true) :   $(".prebtn").attr("disabled", false);
           })
       }, 700);

@@ -2197,7 +2197,7 @@ __webpack_require__.r(__webpack_exports__);
         question_id: '',
         answer: '',
         user_id: '',
-        user_answer: 0,
+        user_answer: null,
         topic_id: '',
         current_attempt: 1
       },
@@ -2218,11 +2218,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    createQuestion: function createQuestion(id, ans, user_id, topic_id) {
+    changePage: function changePage(page) {
+      $('.myQuestion').removeClass('active');
+      $('.myQuestion').eq(page).addClass('active');
+    },
+    createQuestion: function createQuestion(question, user_id) {
       var _this2 = this;
-      this.result.question_id = id;
-      this.result.answer = ans;
+      this.result.question_id = question.id;
+      this.result.answer = question.answer;
       this.result.user_id = user_id;
+      this.result.user_answer = question.user_answer;
       this.result.current_attempt = this.$props.current_attempt;
       this.result.topic_id = this.$props.topic_id;
       this.$http.post("".concat(this.$props.topic_id, "/quiz"), this.result).then(function (response) {
@@ -2231,8 +2236,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         console.log(e);
       });
-      this.result.user_answer = 0;
-      this.result.topic_id = '';
     }
   }
 });
@@ -2262,41 +2265,42 @@ var render = function render() {
       staticClass: "row"
     }, [_c("div", {
       staticClass: "col-md-12"
-    }, [_c("blockquote", [_vm._v("\n          Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n        ")]), _vm._v(" "), _c("h2", {
+    }, [_c("blockquote", [_vm._v("\n            Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n          ")]), _vm._v(" "), _c("h2", {
       staticClass: "question"
     }, [_vm._v("Q.  " + _vm._s(question.question))]), _vm._v(" "), _c("form", {
       staticClass: "myForm",
       attrs: {
+        id: "myform" + index,
         action: "/quiz_start",
         method: "post"
       },
       on: {
         submit: function submit($event) {
           $event.preventDefault();
-          return _vm.createQuestion(question.id, question.answer, _vm.auth.id, question.topic_id, _vm.current_attempt);
+          return _vm.createQuestion(question, _vm.auth.id);
         }
       }
     }, [_c("input", {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.result.user_answer,
-        expression: "result.user_answer"
+        value: question.user_answer,
+        expression: "question.user_answer"
       }],
       staticClass: "radioBtn",
       attrs: {
         required: "",
-        id: "radio" + index,
+        id: "radio" + index + 0,
         type: "radio",
         value: "A",
         "aria-checked": "false"
       },
       domProps: {
-        checked: _vm._q(_vm.result.user_answer, "A")
+        checked: _vm._q(question.user_answer, "A")
       },
       on: {
         change: function change($event) {
-          return _vm.$set(_vm.result, "user_answer", "A");
+          return _vm.$set(question, "user_answer", "A");
         }
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.a))]), _c("br"), _vm._v(" "), question.a_file != null ? _c("div", [_c("img", {
@@ -2307,8 +2311,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.result.user_answer,
-        expression: "result.user_answer"
+        value: question.user_answer,
+        expression: "question.user_answer"
       }],
       staticClass: "radioBtn",
       attrs: {
@@ -2319,11 +2323,11 @@ var render = function render() {
         "aria-checked": "false"
       },
       domProps: {
-        checked: _vm._q(_vm.result.user_answer, "B")
+        checked: _vm._q(question.user_answer, "B")
       },
       on: {
         change: function change($event) {
-          return _vm.$set(_vm.result, "user_answer", "B");
+          return _vm.$set(question, "user_answer", "B");
         }
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.b))]), _c("br"), _vm._v(" "), question.b_file != null ? _c("div", [_c("img", {
@@ -2334,8 +2338,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.result.user_answer,
-        expression: "result.user_answer"
+        value: question.user_answer,
+        expression: "question.user_answer"
       }],
       staticClass: "radioBtn",
       attrs: {
@@ -2346,11 +2350,11 @@ var render = function render() {
         "aria-checked": "false"
       },
       domProps: {
-        checked: _vm._q(_vm.result.user_answer, "C")
+        checked: _vm._q(question.user_answer, "C")
       },
       on: {
         change: function change($event) {
-          return _vm.$set(_vm.result, "user_answer", "C");
+          return _vm.$set(question, "user_answer", "C");
         }
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.c))]), _c("br"), _vm._v(" "), question.c_file != null ? _c("div", [_c("img", {
@@ -2361,8 +2365,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.result.user_answer,
-        expression: "result.user_answer"
+        value: question.user_answer,
+        expression: "question.user_answer"
       }],
       staticClass: "radioBtn",
       attrs: {
@@ -2373,11 +2377,11 @@ var render = function render() {
         "aria-checked": "false"
       },
       domProps: {
-        checked: _vm._q(_vm.result.user_answer, "D")
+        checked: _vm._q(question.user_answer, "D")
       },
       on: {
         change: function change($event) {
-          return _vm.$set(_vm.result, "user_answer", "D");
+          return _vm.$set(question, "user_answer", "D");
         }
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.d))]), _c("br"), _vm._v(" "), question.d_file != null ? _c("div", [_c("img", {
@@ -2388,8 +2392,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.result.user_answer,
-        expression: "result.user_answer"
+        value: question.user_answer,
+        expression: "question.user_answer"
       }],
       staticClass: "radioBtn",
       attrs: {
@@ -2400,11 +2404,11 @@ var render = function render() {
         "aria-checked": "false"
       },
       domProps: {
-        checked: _vm._q(_vm.result.user_answer, "E")
+        checked: _vm._q(question.user_answer, "E")
       },
       on: {
         change: function change($event) {
-          return _vm.$set(_vm.result, "user_answer", "E");
+          return _vm.$set(question, "user_answer", "E");
         }
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.e))]), _c("br"), _vm._v(" "), question.e_file != null ? _c("div", [_c("img", {
@@ -2415,8 +2419,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.result.user_answer,
-        expression: "result.user_answer"
+        value: question.user_answer,
+        expression: "question.user_answer"
       }],
       staticClass: "radioBtn",
       attrs: {
@@ -2426,18 +2430,32 @@ var render = function render() {
         "aria-checked": "false"
       },
       domProps: {
-        checked: _vm._q(_vm.result.user_answer, "F")
+        checked: _vm._q(question.user_answer, "F")
       },
       on: {
         change: function change($event) {
-          return _vm.$set(_vm.result, "user_answer", "F");
+          return _vm.$set(question, "user_answer", "F");
         }
       }
     }), _vm._v(" "), _c("span", [_vm._v(_vm._s(question.f))]), _c("br"), _vm._v(" "), question.f_file != null ? _c("div", [_c("img", {
       attrs: {
         src: "../images/questions/" + question.f_file
       }
-    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0, true)])]), _vm._v(" "), _c("div", {
+    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("div", {
+      staticClass: "row"
+    }, [_vm._m(0, true), _vm._v(" "), _c("div", _vm._l(_vm.questions, function (q, page) {
+      return _c("div", [_c("button", {
+        "class": page === index ? "btn-lg" : "btn",
+        attrs: {
+          type: "button"
+        },
+        on: {
+          click: function click($event) {
+            return _vm.changePage(page);
+          }
+        }
+      }, [_vm._v(_vm._s(page + 1))])]);
+    }), 0)])])]), _vm._v(" "), _c("div", {
       staticClass: "col-md-6"
     }, [question.question_img != null || question.question_video_link != null || question.question_audio != null ? _c("div", {
       staticClass: "question-block-tabs"
@@ -2521,15 +2539,18 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-md-6 col-xs-8"
+    staticClass: "col-md-6 col-xs-8 flex"
   }, [_c("button", {
     staticClass: "btn btn-wave btn-block nextbtn",
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Next")])])]);
+  }, [_vm._v("Next")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-wave btn-block prebtn",
+    attrs: {
+      type: "button"
+    }
+  }, [_vm._v("Prev")])]);
 }];
 render._withStripped = true;
 
@@ -47221,8 +47242,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/kaviya/Downloads/Quick Quiz/quickquiz/resources/assets/js/app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /Users/kaviya/Downloads/Quick Quiz/quickquiz/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/c/l/xam/resources/assets/js/app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /home/c/l/xam/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ }),
