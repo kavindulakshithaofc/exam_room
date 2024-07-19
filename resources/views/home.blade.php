@@ -93,6 +93,28 @@
 
 @section('content')
     <div class="container">
+        
+
+        <form action="{{ route('home') }}" method="GET" class="search-form">
+  <div class="input-group mb-3">
+    <input
+      type="search"
+      class="form-control"
+      name="search"
+      placeholder="Search Papers"
+      aria-label="Search Papers"
+      aria-describedby="search-button"
+    />
+    <button
+      type="submit"
+      class="btn btn-primary"
+      id="search-button"
+    >
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</form>
+
         @if ($auth)
             <div class="quiz-main-block">
                 <div class="row">

@@ -64,20 +64,32 @@
                                 {!! Form::number('timer', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Paper Total Time (In Minutes)']) !!}
                                 <small class="text-danger">{{ $errors->first('timer') }}</small>
                             </div>
-
-                            <div class="form-group{{ $errors->has('attempts') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has('explanation') ? ' has-error' : '' }}">
+                                {!! Form::label('title', 'Paper Explanation') !!}
+                                {{-- <span class="required">*</span> --}}
+                                {!! Form::text('explanation', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Paper Explanation Link', 'required' => 'required']) !!}
+                                <small class="text-danger">{{ $errors->first('explanation') }}</small>
+                            </div>
+                            {{-- <div class="form-group{{ $errors->has('attempts') ? ' has-error' : '' }}">
                                 {!! Form::label('attempts', 'No of attepmts for the exam') !!}
                                 {!! Form::number('attempts', null, ['class' => 'form-control', 'placeholder' => 'No of attemts Students can write answers']) !!}
                                 <small class="text-danger">{{ $errors->first('attempts') }}</small>
-                            </div>
+                            </div> --}}
 
-                            <label for="married_status">Paper Price:</label>
+                            <div class="form-group{{ $errors->has('attempts') ? ' has-error' : '' }}">
+                                {!! Form::label('attempts', 'Number of attempts for the exam') !!}
+                                {!! Form::select('attempts', [1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5', 10 => '10', 50 => '50', 999 => 'Infinite'], null, ['class' => 'form-control', 'placeholder' => 'Select number of attempts']) !!}
+                                <small class="text-danger">{{ $errors->first('attempts') }}</small>
+                            </div>
+                            
+
+                            {{-- <label for="married_status">Paper Price:</label> --}}
                             {{-- <select name="married_status" id="ms" class="form-control">
                   <option value="no">Free</option>
                   <option value="yes">Paid</option>
                 </select> --}}
 
-                            <input type="checkbox" class="quizfp toggle-input" name="quiz_price" id="toggle">
+                            {{-- <input type="checkbox" class="quizfp toggle-input" name="quiz_price" id="toggle">
                             <label for="toggle"></label>
 
                             <div style="display: none;" id="doabox">
@@ -87,7 +99,7 @@
                                     <input value="" name="amount" id="doa" type="text" class="form-control" placeholder="Please Enter Paper Price">
                                     <small class="text-danger">{{ $errors->first('amount') }}</small>
                                 </div>
-                            </div>
+                            </div> --}}
                             <br>
                             <div class="form-group {{ $errors->has('show_ans') ? ' has-error' : '' }}">
                                 <label for="">Enable Show Answer: </label>

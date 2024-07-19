@@ -6,6 +6,7 @@ use App\Answer;
 use App\copyrighttext;
 use App\Question;
 use App\Http\Controllers\DeleteAccountController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PWASettingController;
 use Illuminate\Support\Facades\Auth;
 use App\Page;
@@ -45,12 +46,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
     return view('faq',compact('menus'));
   })->name('faq.get');
 
-  Route::get('/home', function(){
-    $topics = Topic::all();
-    $questions = Question::all();
-    $menus  = Page::where('show_in_menu','=',1)->get();
-    return view('home', compact('topics', 'questions','menus'));
-  });
+  Route::get('/home', [HomeController::class, 'index'])->name('home');
 
   Route::get('/redirect', function () {
       $query = http_build_query([
@@ -184,6 +180,7 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 Route::get('/print/report/aspdf/{id}/{userid}','AllReportController@pdfreport')->name('pdf.report');
 
 Route::delete('delete/sheet/quiz/{id}','TopicController@deleteperquizsheet')->name('del.per.quiz.sheet');
+
 
 Route::group(['middleware'=> 'can:teacher'], function(){
   

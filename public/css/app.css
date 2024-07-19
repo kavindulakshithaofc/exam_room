@@ -8759,3 +8759,7 @@ button.btn-wave:active::before {
 #green-light {
   background-color: green;
 }
+
+.results{
+  background-color: white;
+}

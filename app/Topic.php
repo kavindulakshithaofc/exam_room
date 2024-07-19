@@ -10,7 +10,7 @@ class Topic extends Model
 {
   use Creatable;
     protected $fillable = [
-      'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject_id', 'attempts' , 'type'
+      'title', 'per_q_mark', 'description', 'timer','show_ans','amount', 'subject_id', 'attempts' , 'type', 'explanation'
     ];
 
 

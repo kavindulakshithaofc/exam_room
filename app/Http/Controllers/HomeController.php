@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Page;
+use App\Question;
+use App\Topic;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +24,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $topics = Topic::when($request->search, function ($querry) use($request){
+            $querry->where('title', 'like', '%'.$request->search.'%');
+        })->get();
+        $questions = Question::all();
+        $menus  = Page::where('show_in_menu','=',1)->get();
+        return view('home', compact('topics', 'questions','menus'));
     }
 }

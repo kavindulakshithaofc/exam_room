@@ -19,9 +19,7 @@
     <div class="logo-main-block">
       <div class="container">
         @if ($setting)
-          <a href="{{ url('/') }}" title="{{$setting->welcome_txt}}">
-            <img src="{{asset('/images/logo/'. $setting->logo)}}" class="img-responsive" alt="{{$setting->welcome_txt}}">
-          </a>
+          
         @endif
       </div>
     </div>
@@ -80,7 +78,7 @@
 @section('content')
 <div class="container">
   @if ($auth)
-    <div class="row">
+    <div class="row results">
       <div class="col-md-8 col-md-offset-2">
         <div class="home-main-block">
 
@@ -179,6 +177,11 @@
                 </tr>
               </tbody>
             </table>
+            @if($topic->explanation)
+              <h5 class="text-center">This paper explanation is available at: <a href="{{ $topic->explanation }}" target="_blank"> {{$topic->explanation}} </a></h2>
+            @else
+                No explanation provided.
+            @endif
             <h2 class="text-center">Thank You!</h2>
           </div>
         </div>

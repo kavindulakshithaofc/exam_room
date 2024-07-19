@@ -106,6 +106,7 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->all());
 
        $input = $request->all();
         $request->validate([
@@ -179,14 +180,14 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Topic $topic)
     {
         $request->validate([
 
           'title' => 'required|string',
           'per_q_mark' => 'required',
           'subject_id' => 'required',
-          'attempts' => 'requred',
+          'attempts' => 'required',
           'type' => 'required',
 
         ]);
@@ -197,7 +198,7 @@ class TopicController extends Controller
           ]);
         }
 
-          $topic = Topic::findOrFail($id);
+          // $topic = Topic::findOrFail($id);
 
           $topic->title = $request->title;
           $topic->description = $request->description;
@@ -205,6 +206,9 @@ class TopicController extends Controller
           $topic->subject_id = $request->subject_id;
           $topic->timer = $request->timer;
           $topic->type = $request->type;
+          $topic->explanation = $request->explanation;
+          $topic->attempts = $request->attempts;
+
 
           if(isset($request->show_ans)){
             $topic->show_ans = 1;

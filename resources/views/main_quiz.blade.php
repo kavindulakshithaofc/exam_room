@@ -62,6 +62,8 @@
 	//   dd($current_attempt);
         $users =  App\Answer::where('topic_id',$topic->id)->where('user_id',Auth::user()->id)->first();
         $que =  App\Question::where('topic_id',$topic->id)->first();
+        // $count = App\Question::where('topic_id', $topic->id)->count();
+        $questions = App\Question::where('topic_id', $topic->id)->paginate(10);
         // dd($current_attempt, $topic->attempts);
       ?>
 <!-- dfdsfdf -->
@@ -97,6 +99,7 @@
 	@endif
     </div>
   @endif
+  {{ $questions->links() }}
 </div>
 @endsection
 
