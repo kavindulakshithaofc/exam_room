@@ -2265,7 +2265,7 @@ var render = function render() {
       staticClass: "row"
     }, [_c("div", {
       staticClass: "col-md-12"
-    }, [_c("blockquote", [_vm._v("\n            Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n          ")]), _vm._v(" "), _c("h2", {
+    }, [_c("blockquote", [_vm._v("\n          Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n        ")]), _vm._v(" "), _c("h2", {
       staticClass: "question"
     }, [_vm._v("Q.  " + _vm._s(question.question))]), _vm._v(" "), _c("form", {
       staticClass: "myForm",
@@ -2441,9 +2441,12 @@ var render = function render() {
       attrs: {
         src: "../images/questions/" + question.f_file
       }
-    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c("div", {
-      staticClass: "row"
-    }, [_vm._m(0, true), _vm._v(" "), _c("div", _vm._l(_vm.questions, function (q, page) {
+    })]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c("div", {
+      staticStyle: {
+        display: "flex",
+        "padding-top": "50px"
+      }
+    }, _vm._l(_vm.questions, function (q, page) {
       return _c("div", [_c("button", {
         "class": page === index ? "btn-lg" : "btn",
         attrs: {
@@ -2455,7 +2458,7 @@ var render = function render() {
           }
         }
       }, [_vm._v(_vm._s(page + 1))])]);
-    }), 0)])])]), _vm._v(" "), _c("div", {
+    }), 0)])]), _vm._v(" "), _c("div", {
       staticClass: "col-md-6"
     }, [question.question_img != null || question.question_video_link != null || question.question_audio != null ? _c("div", {
       staticClass: "question-block-tabs"
@@ -2539,18 +2542,15 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
     staticClass: "col-md-6 col-xs-8 flex"
   }, [_c("button", {
     staticClass: "btn btn-wave btn-block nextbtn",
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Next")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-wave btn-block prebtn",
-    attrs: {
-      type: "button"
-    }
-  }, [_vm._v("Prev")])]);
+  }, [_vm._v("Next")])])]);
 }];
 render._withStripped = true;
 
@@ -47242,8 +47242,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/c/l/xam/resources/assets/js/app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /home/c/l/xam/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! /Users/kaviya/Downloads/Quick Quiz/quickquiz/resources/assets/js/app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! /Users/kaviya/Downloads/Quick Quiz/quickquiz/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ }),

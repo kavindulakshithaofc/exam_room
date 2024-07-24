@@ -61,13 +61,12 @@
             <div class="row">
               <div class="col-md-6 col-xs-8 flex">
                 <button type="submit" class="btn btn-wave btn-block nextbtn">Next</button>
-                <button type="button" class="btn btn-wave btn-block prebtn">Prev</button>
               </div>
-			  <div>
-			   <div v-for="(q, page) in questions">
-					<button type="button" :class="page === index ? 'btn-lg' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
-			   </div>
-			  </div>
+            </div>
+            <div style="display: flex; padding-top: 50px;">
+              <div v-for="(q, page) in questions">
+                <button type="button" :class="page === index ? 'btn-lg' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
+              </div>
             </div>
           </form>
         </div>
