@@ -156,7 +156,7 @@ export default {
     $('#light-'+page).css('background-color','green')
     setTimeout(() => {
       $('#light-'+page).css('background-color','red')
-    }, 5000);
+    }, 120_000);
 	},
 
     createQuestion(question, user_id,page) {

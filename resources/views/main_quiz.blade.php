@@ -28,24 +28,28 @@
     <div class="nav-bar">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
+          <!-- Left Column for Paper Title -->
+          <div class="col-sm-4">
             <div class="navbar-header">
-              <!-- Branding Image -->
-
               @if($topic)
                 <h4 class="heading">{{$topic->title}}</h4>
-
               @endif
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-              <!-- Right Side Of Navbar -->
-              <ul class="nav navbar-nav navbar-right">
-                <!-- Authentication Links -->
-                <li id="clock"></li>
-              </ul>
-            </div>
+
+          <!-- Center Column for Audio Player -->
+          <div class="col-sm-4 text-center">
+            <audio controls>
+              <source src="/audio/exam_start.mp3" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+
+          <!-- Right Column for Timer -->
+          <div class="col-sm-4">
+            <ul class="nav navbar-nav navbar-right">
+              <li id="clock" class="float-right"></li>
+            </ul>
           </div>
         </div>
       </div>
