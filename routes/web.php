@@ -8,6 +8,7 @@ use App\Question;
 use App\Http\Controllers\DeleteAccountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PWASettingController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Auth;
 use App\Page;
 use Illuminate\Support\Facades\Route;
@@ -109,40 +110,8 @@ Route::group(['middleware'=> 'coming_soon'], function(){
 
   Route::resource('start_quiz/{id}/quiz', 'MainQuizController');
 
-  Route::get('start_quiz/{id}/finish', function($id){
-    $auth = Auth::user();
-    $topic = Topic::findOrFail($id);
-    $questions = Question::where('topic_id', $id)->get();
-    $count_questions = $questions->count();
-    $answers = Answer::where('user_id',$auth->id)
-                ->where('topic_id',$id)->get();
-	cache()->forget('attempt-'. auth()->id() . '-'.$id);
-    if($count_questions != $answers->count()){
-      foreach($questions as $que){
-        $a = false;
-        foreach($answers as $ans){
-          if($que->id == $ans->question_id){
-            $a = true;
-          }
-        }
-        if($a == false){
-          Answer::create([
-            'topic_id' => $id,
-            'user_id' => $auth->id,
-            'question_id' => $que->id,
-            'user_answer' => 0,
-            'answer' => $que->answer,
-			'current_attempt' => 1
-          ]);
-        }
-      }
-    }
+  Route::get('start_quiz/{id}/finish', [QuizController::class, 'finishQuiz']);
 
-    $ans= Answer::all();
-    $q= Question::all();
-
-    return view('finish', compact('ans','q','topic', 'answers', 'count_questions'));
-  });
 
   Route::get('admin/moresettings/socialicons/','SocialController@index')->name('socialicons.index');
   Route::post('/admin/moresettings/socialicons/insert','SocialController@store')->name('social.store');

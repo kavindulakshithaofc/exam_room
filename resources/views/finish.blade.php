@@ -145,6 +145,7 @@
                   <th>Per Question Mark</th>
                   <th>Total Question Marks</th>
                   <th>My Marks</th>
+                  <th>Percentage</th>
 
                 </tr>
               </thead>
@@ -173,7 +174,7 @@
                     {{$correct}}
                     {{--  @dd($correct); --}}
                   </td>
-
+                  <td>{{ number_format(($correct / ($topic->per_q_mark*$count_questions)) * 100, 2) }}%</td>
                 </tr>
               </tbody>
             </table>
@@ -182,15 +183,22 @@
             @else
                 No explanation provided.
             @endif
+            @php
+                // Calculate the percentage
+                $percentage = $count_questions > 0 ? round(($correct / ($topic->per_q_mark * $count_questions)) * 100, 2) : 0;
 
-			<audio controls>
-				<source src="{{
-					$correct > 70 ? 'hari.mp3' : (
-						$correct > 50 ? 'tikakhari.mp3' :
-						'bari.mp3'
-					) }}" type="audio/mpeg">
-				Your browser does not support the audio element.
-			</audio>
+                // Determine the audio file based on the percentage
+                $audioFile = $percentage >= 80 ? '4.mp3' : (
+                    $percentage >= 60 ? '3.mp3' :
+                    ($percentage >= 40 ? '2.mp3' :
+                    '1.mp3')
+                );
+            @endphp
+
+            <audio controls>
+              <source src="{{ asset('audio/' . $audioFile) }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
             <h2 class="text-center">Thank You!</h2>
           </div>
         </div>
@@ -201,6 +209,21 @@
 @endsection
 
 @section('scripts')
+<script>
+  // PHP variables to JavaScript
+  var countQuestions = {{ $count_questions }};
+  var perQMark = {{ $topic->per_q_mark }};
+  var correct = {{ $correct }};
+  
+  // Calculate the percentage
+  var total = (countQuestions * perQMark);
+
+  var result = (correct/total)*100;
+  
+  // Log to the console
+  console.log("Percentage: " + result + "%");
+</script>
+
   <script>
     $(document).ready(function(){
       history.pushState(null, null, document.URL);
