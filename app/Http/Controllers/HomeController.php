@@ -26,11 +26,14 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $topics = Topic::when($request->search, function ($querry) use($request){
+        $challanges = Topic::when($request->search, function ($querry) use($request){
             $querry->where('title', 'like', '%'.$request->search.'%');
-        })->get();
+        })->where('type','challanges')->get();
+        $pastpapers = Topic::when($request->search, function ($querry) use($request){
+            $querry->where('title', 'like', '%'.$request->search.'%');
+        })->where('type','past_papers')->get();
         $questions = Question::all();
         $menus  = Page::where('show_in_menu','=',1)->get();
-        return view('home', compact('topics', 'questions','menus'));
+        return view('home', compact('challanges', 'questions','menus','pastpapers'));
     }
 }
