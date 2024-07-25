@@ -19,7 +19,7 @@
     <div class="logo-main-block">
       <div class="container">
         @if ($setting)
-          
+
         @endif
       </div>
     </div>
@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">             
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
               <!-- Right Side Of Navbar -->
               <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -87,14 +87,14 @@
          </button>
 
         @if($topic->show_ans==1)
-        
+
          <div class="question-block">
             <h2 class="text-center main-block-heading">{{$topic->title}} ANSWER REPORT</h2>
             <table class="table table-bordered result-table">
               <thead>
                 <tr>
-                  <th>Question</th>                  
-                  
+                  <th>Question</th>
+
                   <th style="color: green;">Correct Answer</th>
                   <th style="color: red;">Your Answer</th>
                   <th>Answer Explnation</th>
@@ -103,14 +103,14 @@
               <tbody>
                 @php
                  $answers = App\Answer::where('topic_id',$topic->id)->where('user_id',Auth::user()->id)->get();
-                @endphp             
-               
+                @endphp
+
                 @php
-                $x = $count_questions;               
+                $x = $count_questions;
                 $y = 1;
                 @endphp
                 @foreach($answers as $key=> $a)
-                
+
                   @if($a->user_answer != "0" && $topic->id == $a->topic_id)
                     <tr>
                       <td>{{ $a->question->question }}</td>
@@ -118,18 +118,18 @@
                       <td>{{ $a->user_answer }}</td>
                       <td>{{ $a->question->answer_exp }}</td>
                     </tr>
-                    @php                
+                    @php
                       $y++;
-                      if($y > $x){                 
+                      if($y > $x){
                         break;
                       }
                     @endphp
                   @endif
-                @endforeach              
-               
+                @endforeach
+
               </tbody>
             </table>
-            
+
           </div>
 
           @endif
@@ -145,7 +145,7 @@
                   <th>Per Question Mark</th>
                   <th>Total Question Marks</th>
                   <th>My Marks</th>
-                 
+
                 </tr>
               </thead>
               <tbody>
@@ -173,7 +173,7 @@
                     {{$correct}}
                     {{--  @dd($correct); --}}
                   </td>
-                 
+
                 </tr>
               </tbody>
             </table>
@@ -182,6 +182,15 @@
             @else
                 No explanation provided.
             @endif
+
+			<audio controls>
+				<source src="{{
+					$correct > 70 ? 'hari.mp3' : (
+						$correct > 50 ? 'tikakhari.mp3' :
+						'bari.mp3'
+					) }}" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
             <h2 class="text-center">Thank You!</h2>
           </div>
         </div>
