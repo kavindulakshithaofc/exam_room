@@ -76,7 +76,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container whitebg">
   @if ($auth)
     <div class="row results">
       <div class="col-md-8 col-md-offset-2">

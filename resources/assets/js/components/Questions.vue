@@ -3,10 +3,12 @@
     <div class="myQuestion" v-for="(question, index) in questions">
       <div class="row">
         <div class="col-md-12">
-          <blockquote>
+          <blockquote style="display: flex; justify-content: space-between;align-items: center;">
             Total Questions &nbsp;&nbsp;{{ index+1 }} / {{questions.length}}
+          <div :id="'light-'+index" style="width: 40px; height: 40px; border-radius: 50%; background-color: green;"></div>
           </blockquote>
           <h2 class="question">Q. &nbsp;{{question.question}}</h2>
+          
 
           <!-- <div class="row" v-if="question.code_snippet !== null">
             <div class="col-md-10">
@@ -26,7 +28,7 @@
             </div>
           </div> -->
 
-          <form v-bind:id="'myform'+ index" class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question, auth.id)" method="post">
+          <form v-bind:id="'myform'+ index" class="myForm" action="/quiz_start" v-on:submit.prevent="createQuestion(question, auth.id, index)" method="post">
             <input required="" class="radioBtn" v-bind:id="'radio'+ index + 0" type="radio" v-model="question.user_answer" value="A" aria-checked="false"> <span>{{question.a}}</span><br>
 
             <div v-if="question.a_file != null">
@@ -113,6 +115,7 @@ export default {
     return {
       questions: [],
       answers: [],
+      per_question_time: 5_000,
       result: {
         question_id: '',
         answer: '',
@@ -128,6 +131,7 @@ export default {
   created () {
   console.log('topic_id', this.$props.topic_id)
     this.fetchQuestions();
+
   },
 
   methods: {
@@ -136,6 +140,11 @@ export default {
       this.$http.get(`${this.$props.topic_id}/quiz/${this.$props.topic_id}`).then(response => {
         this.questions = response.data.questions;
         this.auth = response.data.auth;
+        
+        $('#light-0').css('background-color','green')
+          setTimeout(() => {
+            $('#light-0').css('background-color','red')
+          }, this.per_question_time);
       }).catch((e) => {
         console.log(e)
       });
@@ -144,19 +153,27 @@ export default {
 	changePage(page) {
 		$('.myQuestion').removeClass('active');
 		$('.myQuestion').eq(page).addClass('active');
-
+    $('#light-'+page).css('background-color','green')
+    setTimeout(() => {
+      $('#light-'+page).css('background-color','red')
+    }, 5000);
 	},
 
-    createQuestion(question, user_id) {
+    createQuestion(question, user_id,page) {
       this.result.question_id = question.id;
       this.result.answer = question.answer;
       this.result.user_id = user_id;
-      this.result.user_answer = question.user_answer;
+      this.result.user_answer = question.user_answer ?? 0;
       this.result.current_attempt = this.$props.current_attempt;
       this.result.topic_id = this.$props.topic_id;
+      console.log(this.result);
       this.$http.post(`${this.$props.topic_id}/quiz`, this.result).then((response) => {
         console.log('request completed');
         console.log('request completed', this.result);
+        $('#light-'+(page+1)).css('background-color','green')
+        setTimeout(() => {
+          $('#light-'+(page+1)).css('background-color','red')
+        }, this.per_question_time);
       }).catch((e) => {
         console.log(e);
       });

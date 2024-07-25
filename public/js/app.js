@@ -2193,6 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       questions: [],
       answers: [],
+      per_question_time: 120_000,
       result: {
         question_id: '',
         answer: '',
@@ -2214,6 +2215,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$http.get("".concat(this.$props.topic_id, "/quiz/").concat(this.$props.topic_id)).then(function (response) {
         _this.questions = response.data.questions;
         _this.auth = response.data.auth;
+        $('#light-0').css('background-color', 'green');
+        setTimeout(function () {
+          $('#light-0').css('background-color', 'red');
+        }, _this.per_question_time);
       })["catch"](function (e) {
         console.log(e);
       });
@@ -2221,18 +2226,28 @@ __webpack_require__.r(__webpack_exports__);
     changePage: function changePage(page) {
       $('.myQuestion').removeClass('active');
       $('.myQuestion').eq(page).addClass('active');
+      $('#light-' + page).css('background-color', 'green');
+      setTimeout(function () {
+        $('#light-' + page).css('background-color', 'red');
+      }, 5000);
     },
-    createQuestion: function createQuestion(question, user_id) {
-      var _this2 = this;
+    createQuestion: function createQuestion(question, user_id, page) {
+      var _question$user_answer,
+        _this2 = this;
       this.result.question_id = question.id;
       this.result.answer = question.answer;
       this.result.user_id = user_id;
-      this.result.user_answer = question.user_answer;
+      this.result.user_answer = (_question$user_answer = question.user_answer) !== null && _question$user_answer !== void 0 ? _question$user_answer : 0;
       this.result.current_attempt = this.$props.current_attempt;
       this.result.topic_id = this.$props.topic_id;
+      console.log(this.result);
       this.$http.post("".concat(this.$props.topic_id, "/quiz"), this.result).then(function (response) {
         console.log('request completed');
         console.log('request completed', _this2.result);
+        $('#light-' + (page + 1)).css('background-color', 'green');
+        setTimeout(function () {
+          $('#light-' + (page + 1)).css('background-color', 'red');
+        }, _this2.per_question_time);
       })["catch"](function (e) {
         console.log(e);
       });
@@ -2265,7 +2280,23 @@ var render = function render() {
       staticClass: "row"
     }, [_c("div", {
       staticClass: "col-md-12"
-    }, [_c("blockquote", [_vm._v("\n          Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n        ")]), _vm._v(" "), _c("h2", {
+    }, [_c("blockquote", {
+      staticStyle: {
+        display: "flex",
+        "justify-content": "space-between",
+        "align-items": "center"
+      }
+    }, [_vm._v("\n          Total Questions   " + _vm._s(index + 1) + " / " + _vm._s(_vm.questions.length) + "\n        "), _c("div", {
+      staticStyle: {
+        width: "40px",
+        height: "40px",
+        "border-radius": "50%",
+        "background-color": "green"
+      },
+      attrs: {
+        id: "light-" + index
+      }
+    })]), _vm._v(" "), _c("h2", {
       staticClass: "question"
     }, [_vm._v("Q.  " + _vm._s(question.question))]), _vm._v(" "), _c("form", {
       staticClass: "myForm",
@@ -2277,7 +2308,7 @@ var render = function render() {
       on: {
         submit: function submit($event) {
           $event.preventDefault();
-          return _vm.createQuestion(question, _vm.auth.id);
+          return _vm.createQuestion(question, _vm.auth.id, index);
         }
       }
     }, [_c("input", {

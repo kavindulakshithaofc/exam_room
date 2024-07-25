@@ -8703,3 +8703,7 @@ button.btn-wave:active::before {
   padding: 20px 0;
 }
 
+.container.whitebg {
+  background-color: white;
+}
+

@@ -70,10 +70,7 @@
 
 <!-- red light & green light -->
         <div class="home-main-block">
-              <div id="lights" style="display: flex; align-items: center; gap: 10px;">
-          <div id="red-light" style="width: 40px; height: 40px; border-radius: 50%; background-color: red; display: none;"></div>
-          <div id="green-light" style="width: 40px; height: 40px; border-radius: 50%; background-color: green;"></div>
-        </div>
+          
 	@if(empty($que))
         <div class="alert alert-danger">
           <p>
