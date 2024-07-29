@@ -8707,3 +8707,7 @@ button.btn-wave:active::before {
   background-color: white;
 }
 
+.logo-main-block {
+  display: none;
+}
+

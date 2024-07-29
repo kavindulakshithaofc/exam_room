@@ -13,13 +13,6 @@
 @section('top_bar')
   <nav class="navbar navbar-default navbar-static-top">
     <div class="logo-main-block">
-      <div class="container">
-        @if ($setting)
-          <a href="{{ url('/') }}" title="{{$setting->welcome_txt}}">
-            <img src="{{asset('/images/logo/'. $setting->logo)}}" class="img-responsive" alt="{{$setting->welcome_txt}}">
-          </a>
-        @endif
-      </div>
     </div>
     <div class="nav-bar">
       <div class="container">

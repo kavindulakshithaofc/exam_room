@@ -7,7 +7,7 @@
             Total Questions &nbsp;&nbsp;{{ index+1 }} / {{questions.length}}
           <div :id="'light-'+index" style="width: 40px; height: 40px; border-radius: 50%; background-color: green;"></div>
           </blockquote>
-          <h2 class="question">Q. &nbsp;{{question.question}}</h2>
+          <h2 class="question">&nbsp;{{question.question}}</h2>
           
 
           <!-- <div class="row" v-if="question.code_snippet !== null">
@@ -65,9 +65,9 @@
                 <button type="submit" class="btn btn-wave btn-block nextbtn">Next</button>
               </div>
             </div>
-            <div style="display: flex; padding-top: 50px;">
-              <div v-for="(q, page) in questions">
-                <button type="button" :class="page === index ? 'btn-lg' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
+            <div class="form-navigation" style="display: flex; flex-wrap: wrap; gap:2px 2px;  padding-top: 50px;">
+              <div v-for="(q, page) in questions" >
+                <button  type="button" :class="page === index ? 'btn-sm' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
               </div>
             </div>
           </form>

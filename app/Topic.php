@@ -23,6 +23,9 @@ class Topic extends Model
     public function question(){
       return $this->hasOne('App\Question');
     }
+    public function questions(){
+      return $this->hasMany('App\Question');
+    }
 
     public function answer(){
       return $this->hasOne('App\Answer');

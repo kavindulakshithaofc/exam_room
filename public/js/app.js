@@ -2193,7 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       questions: [],
       answers: [],
-      per_question_time: 120_000,
+      per_question_time: 5000,
       result: {
         question_id: '',
         answer: '',
@@ -2229,7 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#light-' + page).css('background-color', 'green');
       setTimeout(function () {
         $('#light-' + page).css('background-color', 'red');
-      }, 5000);
+      }, 120000);
     },
     createQuestion: function createQuestion(question, user_id, page) {
       var _question$user_answer,
@@ -2298,7 +2298,7 @@ var render = function render() {
       }
     })]), _vm._v(" "), _c("h2", {
       staticClass: "question"
-    }, [_vm._v("Q.  " + _vm._s(question.question))]), _vm._v(" "), _c("form", {
+    }, [_vm._v(" " + _vm._s(question.question))]), _vm._v(" "), _c("form", {
       staticClass: "myForm",
       attrs: {
         id: "myform" + index,
@@ -2473,13 +2473,16 @@ var render = function render() {
         src: "../images/questions/" + question.f_file
       }
     })]) : _vm._e()]) : _vm._e(), _vm._v(" "), _vm._m(0, true), _vm._v(" "), _c("div", {
+      staticClass: "form-navigation",
       staticStyle: {
         display: "flex",
+        "flex-wrap": "wrap",
+        gap: "2px 2px",
         "padding-top": "50px"
       }
     }, _vm._l(_vm.questions, function (q, page) {
       return _c("div", [_c("button", {
-        "class": page === index ? "btn-lg" : "btn",
+        "class": page === index ? "btn-sm" : "btn",
         attrs: {
           type: "button"
         },

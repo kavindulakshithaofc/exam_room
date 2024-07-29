@@ -39,7 +39,7 @@
 
           <!-- Center Column for Audio Player -->
           <div class="col-sm-4 text-center">
-            <audio controls>
+            <audio controls autoplay>
               <source src="/audio/exam_start.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>

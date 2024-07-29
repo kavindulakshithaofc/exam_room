@@ -60,9 +60,9 @@
                     Reset Response
                   </a>
 
-                  <a href="{{ route('pdf.report',['id' => $topic->id, 'userid' => $student->id]) }}" title="Download in PDF Format" class="btn btn-md btn-default">
+                  {{-- <a href="{{ route('pdf.report',['id' => $topic->id, 'userid' => $student->id]) }}" title="Download in PDF Format" class="btn btn-md btn-default">
                      <i class="fa fa-download"></i>
-                  </a>
+                  </a> --}}
 
                   <div id="delete{{ $topic->id }}" class="delete-modal modal fade" role="dialog">
                       <!-- Delete Modal -->

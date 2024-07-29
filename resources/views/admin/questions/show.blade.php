@@ -15,9 +15,9 @@
     <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#createModal">
       {{ __('Add Question')}}
     </button>    
-    <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#importQuestions">
+    {{-- <button type="button" class="btn btn-wave" data-toggle="modal" data-target="#importQuestions">
       {{ __('Import Questions') }}
-    </button>    
+    </button>     --}}
     <a href="{{route('questions.index')}}" class="btn btn-wave pull-right" title=" {{ __('Back') }}">
       <i class="fa fa-arrow-left"></i> 
       {{ __('Back') }}
@@ -136,6 +136,7 @@
                     {!! Form::textarea('answer_exp', null, ['class' => 'form-control', 'placeholder' => 'Please Enter Answer Explanation', 'rows' => '4']) !!}
                     <small class="text-danger">{{ $errors->first('answer_ex') }}</small>
                 </div>
+                
               </div>
               <div class="col-md-12">
                 <div class="extras-block">
@@ -163,6 +164,18 @@
                        <div class="form-group{{ $errors->has('question_audio') ? ' has-error' : '' }}">
                           <input type="text" class="form-control" value="" name="question_audio" placeholder="http://">
                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>
+                        <h6>Note:</h6>
+                        <p>If you are facing any issues working with unicode special charactrs, use below websites.</p>
+                      </strong>
+                      <ul>
+                        <li><a href="https://lingojam.com/TinyTextGenerator">TinyTextGenerator</a></li>
+                        <li><a href="https://symbl.cc/">symbl.cc</a></li>
+                        <li><a href="https://onlinetexttools.com/">onlinetexttools</a></li>
+                        <li><a href="https://charbase.com/">charbase</a></li>
+                      </ul>
                     </div>
 
                   </div>
