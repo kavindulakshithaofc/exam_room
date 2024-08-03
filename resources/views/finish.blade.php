@@ -179,7 +179,7 @@
               </tbody>
             </table>
             @if($topic->explanation)
-              <h5 class="text-center">This paper explanation is available at: <a href="{{ $topic->explanation }}" target="_blank"> {{$topic->explanation}} </a></h2>
+              <h5 class="text-center">ප්‍රශ්න පත්‍ර විවරණය: <a href="{{ $topic->explanation }}" target="_blank"> {{$topic->explanation}} </a></h2>
             @else
                 No explanation provided.
             @endif

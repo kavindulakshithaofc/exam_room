@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class User extends Authenticatable
 {
@@ -42,6 +43,11 @@ class User extends Authenticatable
     public function authentications()
     {
         return $this->hasMany(Authentication::class);
+    }
+
+    public function getProfileLinkAttribute()
+    {
+      return 'http://freestyle.lk/api/user/'.urlencode(base64_encode($this->email));
     }
 
     public function is_admin() {

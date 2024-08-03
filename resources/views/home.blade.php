@@ -168,6 +168,9 @@
                                                                 Free
                                                             @endif
                                                         </li>
+                                                        <li>
+                                                            {{ $topic->created_by }}
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -251,6 +254,7 @@
                                                         <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Quiz Price <i class="fa fa-long-arrow-right"></i></li>
+                                                        <li>Created by <i class="fa fa-long-arrow-right"></i></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-xs-6">
@@ -282,6 +286,10 @@
                                                             @else
                                                                 Free
                                                             @endif
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="{{ $topic->creator->profile_link ?? ''}}" >{{ $topic->creator->name ?? '' }}<a>
                                                         </li>
                                                     </ul>
                                                 </div>

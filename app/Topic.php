@@ -31,6 +31,10 @@ class Topic extends Model
       return $this->hasOne('App\Answer');
     }
 
+    public function creator(){
+      return $this->belongsTo('App\User', 'created_by');
+    }
+
     public function user() {
       return $this->belongsToMany('App\User','topic_user')
          ->withPivot('amount','transaction_id', 'status')

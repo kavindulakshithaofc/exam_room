@@ -38,7 +38,6 @@
                 @guest
                   <li><a href="{{ route('login') }}" title="Login">Login</a></li>
                   <li><a href="{{ route('register') }}" title="Register">Register</a></li>
-                  <li><a href="how-it-works" title="How it works">How it works</a></li>
                   <li><a href="about-us" title="About Us">About Us</a></li>
                 @else
                   <li class="dropdown">
