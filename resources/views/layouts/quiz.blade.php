@@ -12,14 +12,14 @@
     <![endif]-->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{$setting->welcome_txt}}</title>
-    <style>
+    {{-- <style>
         body {
-            background-image: url('{{ asset('images/background.jpeg') }}'); /* Path to your background image */
+            /* background-image: url('{{ asset('images/background.jpeg') }}'); Path to your background image */
             background-size: cover; /* Ensures the image covers the entire page */
             background-repeat: no-repeat; /* Prevents the background from repeating */
             background-attachment: fixed; /* Fixes the background image in place */
         }
-    </style>
+    </style> --}}
     <!-- Styles -->
     @yield('head')
 
