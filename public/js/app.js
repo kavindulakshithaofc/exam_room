@@ -2193,7 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       questions: [],
       answers: [],
-      per_question_time: 5000,
+      per_question_time: 120000,
       result: {
         question_id: '',
         answer: '',
