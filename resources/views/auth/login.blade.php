@@ -27,7 +27,7 @@
           @endif
         </div>
 
-        <h4 class="user-register-heading text-center">Login</h4>
+        <h4 class="user-register-heading text-center">Login to Freestyle Exam System</h4>
         <div class="row">
           @php
             $fb_status = App\Setting::select('fb_login')->where('id','=',1)->first();

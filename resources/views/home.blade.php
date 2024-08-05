@@ -96,21 +96,21 @@
         
 
         <form action="{{ route('home') }}" method="GET" class="search-form" style="display: flex; align-items: center;">
-    <input
-        type="search"
-        name="search"
-        placeholder="Search Papers"
-        aria-label="Search Papers"
-        required
-        style="padding: 10px; flex: 1; box-sizing: border-box; border: none; outline: none;"
-    />
-    <button
-        type="submit"
-        style="padding: 10px 20px; background-color: #d28b0f; color: white; border: none; cursor: pointer; outline: none; height: 100%;"
-    >
-        Search
-    </button>
-</form>
+            <input
+                type="search"
+                name="search"
+                placeholder="Search Papers"
+                aria-label="Search Papers"
+                required
+                style="padding: 10px; flex: 1; box-sizing: border-box; border: none; outline: none;"
+             />
+             <button
+                type="submit"
+                style="padding: 10px 20px; background-color: #d28b0f; color: white; border: none; cursor: pointer; outline: none; height: 100%;"
+            >
+                Search
+            </button>
+        </form>
 
 
 

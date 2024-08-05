@@ -115,7 +115,7 @@ export default {
     return {
       questions: [],
       answers: [],
-      per_question_time: 5_000,
+      per_question_time: 120_000,
       result: {
         question_id: '',
         answer: '',
@@ -156,7 +156,7 @@ export default {
     $('#light-'+page).css('background-color','green')
     setTimeout(() => {
       $('#light-'+page).css('background-color','red')
-    }, 120_000);
+    }, 120000);
 	},
 
     createQuestion(question, user_id,page) {

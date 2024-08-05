@@ -195,7 +195,7 @@
                 );
             @endphp
 
-            <audio controls>
+            <audio controls autoplay>
               <source src="{{ asset('audio/' . $audioFile) }}" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
