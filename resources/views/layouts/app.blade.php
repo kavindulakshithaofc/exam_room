@@ -14,22 +14,26 @@
     <title>{{$setting->welcome_txt}}</title>
     <style>
         body {
-            background-image: url('{{ asset('images/background.gif') }}'); /* Path to your background image */
-            background-size: cover; /* Ensures the image covers the entire page */
-            background-repeat: no-repeat; /* Prevents the background from repeating */
-            background-attachment: fixed; /* Fixes the background image in place */
-            background-position: center; /* Centers the background image */
-
+        background-image: url('{{ asset('images/background2.gif') }}'); /* Path to your background image */
+        background-size: cover; /* Ensures the image covers the entire page */
+        background-repeat: no-repeat; /* Prevents the background from repeating */
+        background-attachment: fixed; /* Fixes the background image in place */
+        background-position: center; /* Centers the background image */
+        position: relative; /* Ensure the body is positioned to contain the pseudo-element */
+        min-height: 100vh; /* Ensures body is at least 100% of viewport height */
+        margin: 0;
         }
+
         body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: -15%;
-            background: rgba(255, 255, 255, 0.6); /* White overlay with 50% opacity */
-            z-index: -1; /* Places the pseudo-element behind the content */
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%; /* Ensures it covers the entire height of the body */
+        background: rgba(255, 255, 255, 0.6); /* White overlay with 60% opacity */
+        z-index: -1; /* Places the pseudo-element behind the content */
         }
     </style>
     <!-- Styles -->

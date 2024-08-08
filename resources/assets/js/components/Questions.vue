@@ -62,7 +62,7 @@
 
             <div class="row">
               <div class="col-md-6 col-xs-8 flex">
-                <button type="submit" class="btn btn-wave btn-block nextbtn">Next</button>
+                <button type="submit" class="btn btn-wave btn-block nextbtn">Submit</button>
               </div>
             </div>
             <div class="form-navigation" style="display: flex; flex-wrap: wrap; gap:2px 2px;  padding-top: 50px;">

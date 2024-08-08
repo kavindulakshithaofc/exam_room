@@ -30,12 +30,15 @@ class HomeController extends Controller
     {
         $challanges = Topic::when($request->search, function ($querry) use($request){
             $querry->where('title', 'like', '%'.$request->search.'%');
-        })->where('type','challanges')->get();
+        })->where('type','challenges')->get();
         $pastpapers = Topic::when($request->search, function ($querry) use($request){
             $querry->where('title', 'like', '%'.$request->search.'%');
         })->where('type','past_papers')->get();
+        $modelpapers = Topic::when($request->search, function ($querry) use($request){
+            $querry->where('title', 'like', '%'.$request->search.'%');
+        })->where('type','model_papers')->get();
         $questions = Question::all();
         $menus  = Page::where('show_in_menu','=',1)->get();
-        return view('home', compact('challanges', 'questions','menus','pastpapers'));
+        return view('home', compact('challanges', 'questions','menus','pastpapers','modelpapers'));
     }
 }

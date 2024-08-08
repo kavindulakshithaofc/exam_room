@@ -2584,7 +2584,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Next")])])]);
+  }, [_vm._v("Submit")])])]);
 }];
 render._withStripped = true;
 

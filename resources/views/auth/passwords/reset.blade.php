@@ -38,7 +38,7 @@
                 @guest
                   <li><a href="{{ route('login') }}" title="Login">Login</a></li>
                   <li><a href="{{ route('register') }}" title="Register">Register</a></li>
-                  <li><a href="about-us" title="About Us">About Us</a></li>
+                  <li><a href="{{ route('about.us') }}" title="About Us">About Us</a></li>
                 @else
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -63,7 +63,7 @@
                     </ul>
                   </li>
                   <li><a href="how-it-works" title="How it works">How it works</a></li>
-                  <li><a href="about-us" title="About Us">About Us</a></li>
+                  <li><a href="{{ route('about.us') }}" title="About Us">About Us</a></li>
                   <li><a href="{{ route('faq.get') }}" title="FAQ's">FAQ's</a></li>
                 @endguest
               </ul>
