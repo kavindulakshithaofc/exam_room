@@ -106,7 +106,7 @@
              />
              <button
                 type="submit"
-                style="padding: 10px 20px; background-color:rgb(226, 43, 137); color: white; border: none; cursor: pointer; outline: none; height: 100%;"
+                style="padding: 10px 20px; background-color:rgb(3, 153, 43); color: white; border: none; cursor: pointer; outline: none; height: 100%;"
             >
                 Search
             </button>
