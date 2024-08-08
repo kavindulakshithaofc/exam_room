@@ -45,6 +45,7 @@
                                     <option value="">Select Paper type</option>
                                     <option value="past_papers">Past Papers</option>
                                     <option value="challenges">Challenges</option>
+                                    <option value="model_papers">Model Papers</option>
                                 </select>
                                 <small class="text-danger">{{ $errors->first('type') }}</small>
                             </div>

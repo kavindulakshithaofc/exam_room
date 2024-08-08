@@ -162,7 +162,7 @@
                     @endphp
 
                     @foreach ($answers as $answer)
-                      @if ($answer->answer == $answer->user_answer)
+                      @if ($answer->answer == $answer->user_answer || $answer->answer == 'All')
                         @php
                         $mark++;
                         @endphp

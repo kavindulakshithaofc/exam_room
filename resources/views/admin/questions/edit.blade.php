@@ -33,7 +33,7 @@
             <div class="form-group{{ $errors->has('answer') ? ' has-error' : '' }}">
                 {!! Form::label('answer', 'Correct Answer') !!}
                 <span class="required">*</span>
-                {!! Form::select('answer', array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D','E'=>'E','F'=>'F'),null, ['class' => 'form-control select2', 'required' => 'required', 'placeholder'=>'']) !!}
+                {!! Form::select('answer', array('A'=>'A', 'B'=>'B', 'C'=>'C', 'D'=>'D','E'=>'E','F'=>'F','All'=>'All'),null, ['class' => 'form-control select2', 'required' => 'required', 'placeholder'=>'']) !!}
                 <small class="text-danger">{{ $errors->first('answer') }}</small>
             </div>
           </div>
