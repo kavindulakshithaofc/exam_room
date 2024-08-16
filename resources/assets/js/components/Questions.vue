@@ -65,14 +65,8 @@
                 <button type="submit" class="btn btn-wave btn-block nextbtn">Submit</button>
               </div>
             </div>
-            <div class="form-navigation" style="display: flex; flex-wrap: wrap; gap:2px 2px;  padding-top: 50px;">
-              <div v-for="(q, page) in questions" >
-                <button  type="button" :class="page === index ? 'btn-sm' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
           <div class="question-block-tabs" v-if="question.question_img != null || question.question_video_link != null || question.question_audio != null">
             <ul class="nav nav-tabs tabs-left">
               <li v-if="question.question_img != null" class="active"><a :href="'#image'+(index+1)" data-toggle="tab">Question Image</a></li>
@@ -101,6 +95,14 @@
               </div>
             </div>
           </div>
+        </div>
+            </div>
+            <div class="form-navigation" style="display: flex; flex-wrap: wrap; gap:2px 2px;  padding-top: 50px;">
+              <div v-for="(q, page) in questions" >
+                <button  type="button" :class="page === index ? 'btn-sm' : 'btn'" @click="changePage(page)">{{ page + 1 }}</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
