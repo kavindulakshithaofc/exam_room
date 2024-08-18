@@ -201,7 +201,8 @@ Route::group(['middleware'=> 'isadmin'], function(){
   Route::get('/admin/mail-settings','Configcontroller@getset')->name('mail.getset');
   Route::post('admin/mail-settings', 'Configcontroller@changeMailEnvKeys')->name('mail.update');
 
-  Route::get('/about_us', [App\Http\Controllers\PagesController::class, 'aboutUs'])->name('about.us');
+  Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'aboutUs'])->withoutMiddleware(['auth'])->name('about.us');
+
 
 
 });

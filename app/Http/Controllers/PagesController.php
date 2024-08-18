@@ -8,9 +8,6 @@ use DataTables;
 // use App\SocialIcons;
 class PagesController extends Controller
 {
-  public function aboutUs(){
-    return view('about_us');
-  }
     public function index(Request $request)
     {
       

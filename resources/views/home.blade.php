@@ -55,7 +55,7 @@
                                         </a>
 
                                         <ul class="dropdown-menu" id="dropdown">
-                                            @if ($auth->role == 'A')
+                                            @if ($auth->role == 'A'|| $auth->role == 'T')
                                                 <li><a href="{{ url('/admin') }}" title="Dashboard">Dashboard</a></li>
                                             @elseif ($auth->role == 'S')
                                                 <li><a href="{{ url('/admin/my_reports') }}" title="Dashboard">Dashboard</a>
@@ -64,7 +64,7 @@
                                             <li>
                                                 <a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                                                        document.getElementById('logout-form').submit();">
                                                     Logout
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -134,7 +134,7 @@
                                                         <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
-                                                        <li>Quiz Price <i class="fa fa-long-arrow-right"></i></li>
+                                                        <li>Created by <i class="fa fa-long-arrow-right"></i></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-xs-6">
@@ -159,16 +159,8 @@
                                                         <li>
                                                             {{ $topic->timer }} minutes
                                                         </li>
-
-                                                        <li class="amount">
-                                                            @if (!empty($topic->amount))
-                                                                {{-- <i class="{{$setting->currency_symbol}}"></i> {{$topic->amount}}   --}}
-                                                            @else
-                                                                Free
-                                                            @endif
-                                                        </li>
                                                         <li>
-                                                            {{ $topic->created_by }}
+                                                            <a href="{{ $topic->creator->profile_link ?? ''}}" >{{ $topic->creator->name ?? '' }}<a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -238,7 +230,6 @@
                                                         <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
-                                                        <li>Quiz Price <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Created by <i class="fa fa-long-arrow-right"></i></li>
                                                     </ul>
                                                 </div>
@@ -263,14 +254,6 @@
                                                         </li>
                                                         <li>
                                                             {{ $topic->timer }} minutes
-                                                        </li>
-
-                                                        <li class="amount">
-                                                            @if (!empty($topic->amount))
-                                                                {{-- <i class="{{$setting->currency_symbol}}"></i> {{$topic->amount}}   --}}
-                                                            @else
-                                                                Free
-                                                            @endif
                                                         </li>
 
                                                         <li>
@@ -341,7 +324,6 @@
                                                         <li>Total Marks <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Questions <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Total Time <i class="fa fa-long-arrow-right"></i></li>
-                                                        <li>Quiz Price <i class="fa fa-long-arrow-right"></i></li>
                                                         <li>Created by <i class="fa fa-long-arrow-right"></i></li>
                                                     </ul>
                                                 </div>
@@ -367,15 +349,6 @@
                                                         <li>
                                                             {{ $topic->timer }} minutes
                                                         </li>
-
-                                                        <li class="amount">
-                                                            @if (!empty($topic->amount))
-                                                                {{-- <i class="{{$setting->currency_symbol}}"></i> {{$topic->amount}}   --}}
-                                                            @else
-                                                                Free
-                                                            @endif
-                                                        </li>
-
                                                         <li>
                                                             <a href="{{ $topic->creator->profile_link ?? ''}}" >{{ $topic->creator->name ?? '' }}<a>
                                                         </li>
