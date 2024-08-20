@@ -10,13 +10,13 @@
           <h2 class="question">&nbsp;{{question.question}}</h2>
           
 
-          <!-- <div class="row" v-if="question.code_snippet !== null">
+          <div class="row" v-if="question.code_snippet !== null">
             <div class="col-md-10">
               <pre class="code">
                 {{question.code_snippet}}
               </pre>
             </div>
-          </div> -->
+          </div>
 
           <!-- <div class="row" v-if="question.answer_exp !== null">
             <div class="col-md-10">

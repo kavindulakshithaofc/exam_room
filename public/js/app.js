@@ -2298,7 +2298,13 @@ var render = function render() {
       }
     })]), _vm._v(" "), _c("h2", {
       staticClass: "question"
-    }, [_vm._v(" " + _vm._s(question.question))]), _vm._v(" "), _c("form", {
+    }, [_vm._v(" " + _vm._s(question.question))]), _vm._v(" "), question.code_snippet !== null ? _c("div", {
+      staticClass: "row"
+    }, [_c("div", {
+      staticClass: "col-md-10"
+    }, [_c("pre", {
+      staticClass: "code"
+    }, [_vm._v("              " + _vm._s(question.code_snippet) + "\n            ")])])]) : _vm._e(), _vm._v(" "), _c("form", {
       staticClass: "myForm",
       attrs: {
         id: "myform" + index,

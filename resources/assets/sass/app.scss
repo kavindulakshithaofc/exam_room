@@ -271,7 +271,7 @@ button.btn-wave:active::before {
 .main-block-heading {
   font-size: 60px;
   text-transform: uppercase;
-  letter-spacing: 10px;
+  letter-spacing: 2px;
 }
 .home-main-block .btn_block {
   margin-top: 50px;
@@ -322,6 +322,7 @@ button.btn-wave:active::before {
 .myQuestion .code {
   background-color: #f1f1f1;
   padding: 12px;
+  white-space: pre-line;
 }
 #clock span {
   margin-top: 4px;
