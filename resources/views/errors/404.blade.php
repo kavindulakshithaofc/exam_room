@@ -14,8 +14,10 @@
 	<div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
-				<h1>404</h1>
-				<h2>Page not found</h2>
+				<img src="{{ asset('images/404.png') }}" alt="404 - Page Not Found" style="max-width: 100%; height: 160%; display: block; margin: 0 auto;">
+
+				{{-- <h1>404</h1> --}}
+				<h2></h2>
 			</div>
 			<a href={{url('/')}} title="Homepage">Homepage</a>
 		</div>
