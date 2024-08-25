@@ -100,7 +100,11 @@
                   <li>
                     <img src="{{ Avatar::create(ucfirst($user->name))->toBase64() }}" alt="" height="50" width="50">
                     <a class="users-list-name" href="#" title="{{$user->name}}">{{ucfirst($user->name)}}</a>
-                    <span class="users-list-date">{{$user->created_at->diffForHumans()}}</span>
+                    <?php if($user->created_at): ?>
+                        <span class="users-list-date"><?php echo e($user->created_at->diffForHumans()); ?></span>
+                    <?php else: ?>
+                        <span class="users-list-date">No Date Available</span>
+                    <?php endif; ?>
                   </li>
                 @endforeach
               @endif
