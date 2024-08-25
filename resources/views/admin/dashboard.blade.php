@@ -57,8 +57,8 @@
                 More info <i class="fa fa-arrow-circle-right"></i>
               </a>
             </div>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Answer Sheets</button>
-            <p>It's Delete All Student All Quiz Results</p>
+            {{-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#AllDeleteModal">Delete All Answer Sheets</button>
+            <p>It's Delete All Student All Quiz Results</p> --}}
             <!-- All Delete Button -->
             <div id="AllDeleteModal" class="delete-modal modal fade" role="dialog">
               <!-- All Delete Modal -->
