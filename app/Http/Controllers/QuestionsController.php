@@ -21,7 +21,8 @@ class QuestionsController extends Controller
 
 	public function index(Request $request)
 	{
-		$topics = Topic::with('questions')->get();
+		// $topics = Topic::with('questions')->get();
+		$topics = Topic::with('questions')->where('created_by', auth()->id())->get();
 		// $questions = Question::where('created_by', auth()->id())->get();
 		return view('admin.questions.index', compact('topics'));
 	}
