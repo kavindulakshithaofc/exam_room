@@ -12,6 +12,7 @@
 
 @section('content')
 <!---->
+@if(Auth::check() && Auth::user()->role === 'A')
   <div class="dashboard-block">
     <div class="row">
       <div class="col-md-7">
@@ -86,26 +87,30 @@
       </div>
       <div class="col-md-5">
         <div class="box box-danger">
-          <div class="box-header with-border">
-            <h4 class="box-title">Latest Students</h4>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-              </button>
+            <div class="box-header with-border">
+                <h4 class="box-title">Latest Students</h4>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
             </div>
-          </div>         
-          <div class="box-body no-padding">
-            <ul class="users-list clearfix">
-              @if ($user_latest)
-                @foreach ($user_latest as $user)
-                  <li>
-                    <img src="{{ Avatar::create(ucfirst($user->name))->toBase64() }}" alt="" height="50" width="50">
-                    <a class="users-list-name" href="#" title="{{$user->name}}">{{ucfirst($user->name)}}</a>
-                    <span class="users-list-date">{{$user->created_at->diffForHumans()}}</span>
-                  </li>
-                @endforeach
-              @endif
-            </ul>            
-          </div>          
+            <div class="box-body no-padding">
+                @if(Auth::check() && Auth::user()->role === 'A') <!-- Ensure the user is logged in and has the admin role -->
+                <ul class="users-list clearfix">
+                    @if ($user_latest)
+                        @foreach ($user_latest as $user)
+                            <li>
+                                <img src="{{ Avatar::create(ucfirst($user->name))->toBase64() }}" alt="" height="50" width="50">
+                                <a class="users-list-name" href="#" title="{{$user->name}}">{{ucfirst($user->name)}}</a>
+                                <span class="users-list-date">{{$user->created_at->diffForHumans()}}</span>
+                            </li>
+                        @endforeach
+                    @endif
+                </ul>
+                @endif <!-- End admin check -->
+            </div>
+        </div>
+    </div>
+           
          
           <div class="box-footer text-center">
             <a href="{{url('admin/users')}}" class="uppercase">View All Students</a>
@@ -115,4 +120,5 @@
       </div>
     </div>
   </div>
+  @endif
 @endsection
