@@ -43,6 +43,9 @@
               <source src="/audio/exam_start.mp3" type="audio/mp3">
               Your browser does not support the audio element.
             </audio>
+
+            <audio id="alertSound15" src="/audio/15_min.mp3"></audio>
+
           </div>
 
           <!-- Right Column for Timer -->
@@ -115,58 +118,86 @@
   @if(!empty($que) && !($current_attempt > $topic->attempts && $users && ($count_questions == $users->count())))
    <script>
     var topic_id = {{$topic->id}};
-    var timer = {{$topic->timer}};
-     $(document).ready(function() {
-      function e(e) {
-          (116 == (e.which || e.keyCode) || 82 == (e.which || e.keyCode)) && e.preventDefault()
-      }
-      setTimeout(function() {
-          $(".myQuestion:first-child").addClass("active");
-          $(".prebtn").attr("disabled", true);
-      }, 2500), history.pushState(null, null, document.URL), window.addEventListener("popstate", function() {
-          history.pushState(null, null, document.URL)
-      }), $(document).on("keydown", e), setTimeout(function() {
-          $(".nextbtn").click(function() {
-              var e = $(".myQuestion.active");
-              $(e).removeClass("active"), 0 == $(e).next().length ? (Cookies.remove("time"), Cookies.set("done", "Your Quiz is Over...!", {
-                  expires: 1
-              }), location.href = "{{$topic->id}}/finish") : ($(e).next().addClass("active"),
-              $(".prebtn").attr("disabled", false))
-          }),
-          $(".prebtn").click(function() {
-              var e = $(".myQuestion.active");
-              $(e).removeClass("active"),
-              $(e).prev().addClass("active"),
-			//   $(".myForm")[0].reset()
-              $(".myQuestion:first-child").hasClass("active") ?  $(".prebtn").attr("disabled", true) :   $(".prebtn").attr("disabled", false);
-          })
-      }, 700);
-      var i, o = (new Date).getTime() + 6e4 * timer;
-      if (Cookies.get("time") && Cookies.get("topic_id") == topic_id) {
-          i = Cookies.get("time");
-          var t = o - i,
-              n = o - t;
-          $("#clock").countdown(n, {
-              elapse: !0
-          }).on("update.countdown", function(e) {
-              var i = $(this);
-              e.elapsed ? (Cookies.set("done", "Your Quiz is Over...!", {
-                  expires: 1
-              }), Cookies.remove("time"), location.href = "{{$topic->id}}/finish") : i.html(e.strftime("<span>%H:%M:%S</span>"))
-          })
-      } else Cookies.set("time", o, {
-          expires: 1
-      }), Cookies.set("topic_id", topic_id, {
-          expires: 1
-      }), $("#clock").countdown(o, {
-          elapse: !0
-      }).on("update.countdown", function(e) {
-          var i = $(this);
-          e.elapsed ? (Cookies.set("done", "Your Quiz is Over...!", {
-              expires: 1
-          }), Cookies.remove("time"), location.href = "{{$topic->id}}/finish") : i.html(e.strftime("<span>%H:%M:%S</span>"))
-      })
-  });
+var timer = {{$topic->timer}};
+$(document).ready(function() {
+    function e(e) {
+        (116 == (e.which || e.keyCode) || 82 == (e.which || e.keyCode)) && e.preventDefault();
+    }
+
+    setTimeout(function() {
+        $(".myQuestion:first-child").addClass("active");
+        $(".prebtn").attr("disabled", true);
+    }, 2500);
+    
+    history.pushState(null, null, document.URL);
+    window.addEventListener("popstate", function() {
+        history.pushState(null, null, document.URL);
+    });
+    $(document).on("keydown", e);
+
+    setTimeout(function() {
+        $(".nextbtn").click(function() {
+            var e = $(".myQuestion.active");
+            $(e).removeClass("active");
+            if (0 == $(e).next().length) {
+                Cookies.remove("time");
+                Cookies.set("done", "Your Quiz is Over...!", { expires: 1 });
+                location.href = "{{$topic->id}}/finish";
+            } else {
+                $(e).next().addClass("active");
+                $(".prebtn").attr("disabled", false);
+            }
+        });
+
+        $(".prebtn").click(function() {
+            var e = $(".myQuestion.active");
+            $(e).removeClass("active");
+            $(e).prev().addClass("active");
+            $(".myQuestion:first-child").hasClass("active") ? $(".prebtn").attr("disabled", true) : $(".prebtn").attr("disabled", false);
+        });
+    }, 700);
+
+    var i, o = (new Date).getTime() + 6e4 * timer;
+    if (Cookies.get("time") && Cookies.get("topic_id") == topic_id) {
+        i = Cookies.get("time");
+        var t = o - i,
+            n = o - t;
+        $("#clock").countdown(n, { elapse: !0 }).on("update.countdown", function(e) {
+            var i = $(this);
+            var formattedTime = e.strftime('%H:%M:%S'); // Get formatted time
+            
+            // Log the formatted time
+            // console.log("Current time: " + formattedTime);
+
+            // Check for specific time
+            if (formattedTime === '00:15:00') {
+                // console.log("The countdown has reached 1 hour, 12 minutes, and 44 seconds!");
+                document.getElementById('alertSound15').play();
+            }
+
+            e.elapsed ? (Cookies.set("done", "Your Quiz is Over...!", { expires: 1 }), Cookies.remove("time"), location.href = "{{$topic->id}}/finish") : i.html("<span>" + formattedTime + "</span>");
+        });
+    } else {
+        Cookies.set("time", o, { expires: 1 });
+        Cookies.set("topic_id", topic_id, { expires: 1 });
+        $("#clock").countdown(o, { elapse: !0 }).on("update.countdown", function(e) {
+            var i = $(this);
+            var formattedTime = e.strftime('%H:%M:%S'); // Get formatted time
+            
+            // Log the formatted time
+            // console.log("Current time: " + formattedTime);
+
+            // Check for specific time
+            if (formattedTime === '00:15:00') {
+                // console.log("The countdown has reached 1 hour, 12 minutes, and 44 seconds!");
+                document.getElementById('alertSound15').play();
+            }
+
+            e.elapsed ? (Cookies.set("done", "Your Quiz is Over...!", { expires: 1 }), Cookies.remove("time"), location.href = "{{$topic->id}}/finish") : i.html("<span>" + formattedTime + "</span>");
+        });
+    }
+});
+
   </script>
   @else
   {{ "" }}
@@ -209,36 +240,7 @@
    }
  });
 });
-     // end all controller is disable
+
  </script>
-
- <script>
-    // Check if jQuery is loaded
-    if (typeof jQuery == 'undefined') {
-      alert('jQuery is not loaded');
-    } else {
-      alert('jQuery is loaded');
-    }
-
-    $(document).ready(function() {
-      alert('Document is ready'); // Debugging statement
-
-      // Function to update the lights
-      function changeLightToRed() {
-        alert('Changing light to red'); // Debugging statement
-        $('#green-light').hide();
-        $('#red-light').show();
-      }
-
-      // Initial light state is green
-      $('#red-light').hide();
-      $('#green-light').show();
-      alert('Initial state set to green'); // Debugging statement
-
-      // Set a timeout to change the light to red after 3 seconds
-      setTimeout(changeLightToRed, 3000);
-    });
-  </script>
-
 @endif
 @endsection

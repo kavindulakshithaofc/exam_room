@@ -117,7 +117,7 @@ export default {
     return {
       questions: [],
       answers: [],
-      per_question_time: 120_000,
+      per_question_time: 144_000,
       result: {
         question_id: '',
         answer: '',
