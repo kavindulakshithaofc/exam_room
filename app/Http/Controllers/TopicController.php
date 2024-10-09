@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Topic;
 use App\Answer;
 use DataTables;
@@ -18,7 +19,7 @@ class TopicController extends Controller
         // $topics = Topic::all();
 
 		if($request->ajax()){
-			  $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','per_q_mark','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id')->when(auth()->user()->can('teacher_only'), function($query){ $query->where('topics.created_by', auth()->id());});
+			  $topics = \DB::table('topics')->select('topics.id', 'topics.title','description','access_token','timer','attempts','subject_id','subjects.title as subject','type')->join('subjects','topics.subject_id','=','subjects.id')->when(auth()->user()->can('teacher_only'), function($query){ $query->where('topics.created_by', auth()->id());});
 
             return DataTables::of($topics)
             ->addIndexColumn('id')
@@ -31,8 +32,8 @@ class TopicController extends Controller
             ->addColumn('description',function($row){
                 return $row->description;
             })
-            ->addColumn('per_q_mark',function($row){
-                return $row->per_q_mark;
+            ->addColumn('access_token',function($row){
+                return $row->access_token;
             })
             ->addColumn('timer',function($row){
               return $row->timer;
@@ -79,7 +80,7 @@ class TopicController extends Controller
                 </div>';
               return $btn;
             })
-            ->rawColumns(['title', 'subject', 'description','per_q_mark','timer','attempts','action','type'])
+            ->rawColumns(['title', 'subject', 'description','$access_token','timer','attempts','action','type'])
             ->make(true);
 
           }
@@ -134,6 +135,10 @@ class TopicController extends Controller
           $input['show_ans'] = "1";
         }else{
           $input['show_ans'] = "0";
+        }
+
+        if ($request->type === 'live_papers') {
+          $input['access_token'] = Str::random(16);  // Generate a 16-character random access token
         }
 
        // $input = $request->all();
@@ -221,6 +226,10 @@ class TopicController extends Controller
             $topic->amount = $request->amount;
           }else{
             $topic->amount = NULL;
+          }
+
+          if ($request->type === 'live_papers' && !$topic->access_token) {
+            $topic->access_token = Str::random(16);  // Generate access token if it doesn't exist
           }
 
          try{

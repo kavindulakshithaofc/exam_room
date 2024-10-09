@@ -103,7 +103,7 @@
 	@endif
     </div>
   @endif
-  {{ $questions->links() }}
+  
 </div>
 @endsection
 

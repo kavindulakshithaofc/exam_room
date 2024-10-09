@@ -19,7 +19,8 @@ class AllReportController extends Controller
      */
     public function index()
     {
-        $topics = Topic::all();
+        $topics = Topic::my()->get();
+
         $questions = Question::all();
         return view('admin.all_reports.index', compact('topics', 'questions'));
     }

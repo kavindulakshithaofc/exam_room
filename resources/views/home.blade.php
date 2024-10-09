@@ -186,8 +186,8 @@
                                             @endif
 
                                             @if ($auth->topic()->where('topic_id', $topic->id)->exists())
-                                                <a href="{{ route('start_quiz', ['id' => $topic->id]) }}"
-                                                    class="btn btn-block" title="Start Quiz">Start Quiz </a>
+                                                <a href="{{ route('start_quiz', ['access_token' => $topic->access_token, 'id' => $topic->id]) }}"
+                                                class="btn btn-block" title="Start Quiz">Start Quiz</a>
                                             @else
                                                 {!! Form::open(['method' => 'POST', 'action' => 'PaypalController@paypal_post']) !!}
                                                 {{ csrf_field() }}
@@ -196,12 +196,12 @@
                                                     <button type="submit" class="btn btn-default">Pay <i
                                                             class="{{ $setting->currency_symbol }}"></i>{{ $topic->amount }}</button>
                                                 @else
-                                                    <a href="{{ route('start_quiz', ['id' => $topic->id]) }}"
-                                                        class="btn btn-block" title="Start Quiz">Start Quiz </a>
+                                                    <a href="{{ route('start_quiz', ['access_token' => $topic->access_token, 'id' => $topic->id]) }}"
+                                                        class="btn btn-block" title="Start Quiz">Start Quiz</a>
                                                 @endif
-
                                                 {!! Form::close() !!}
                                             @endif
+
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +209,13 @@
                         @endforeach
                     @endif
                 </div>
-
+                
+                <div class="row">
+                    <h1 style="color: black; font-weight: bolder;">Live Online Examination</h1>
+                    <p style="background-color: white; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+                        Please note that the live online examination cannot be accessed directly. Your teacher will provide the specific examination link to you separately. Ensure you follow the instructions provided by your teacher to access the exam at the designated time.
+                    </p>
+                </div>
 
                 <div class="row">
                     @if ($pastpapers)

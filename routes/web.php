@@ -90,7 +90,13 @@ Route::group(['middleware'=> 'coming_soon'], function(){
   Route::post('/pwa-setting', [PWASettingController::class, 'store'])->name('pwa.store');
   Route::get('/manifest.json', [PWASettingController::class, 'manifest'])->name('laravelpwa.manifest');
 
+  
   Route::get('start_quiz/{id}', function($id){
+    if (!Auth::check()) {
+        return redirect()->route('login'); // Redirect to login if not authenticated
+    }
+
+
     $topic = Topic::findOrFail($id);
 	$current_attempt = cache()->rememberForever('attempt-'. auth()->id() . '-'.$id, function() use ($topic){ return (Answer::where('topic_id', $topic->id)->where('user_id', auth()->id())->first()->current_attempt ?? 0 )+ 1;});
 	$questions = Question::where('topic_id', $id)->get();
@@ -111,6 +117,23 @@ Route::group(['middleware'=> 'coming_soon'], function(){
   Route::resource('start_quiz/{id}/quiz', 'MainQuizController');
 
   Route::get('start_quiz/{id}/finish', [QuizController::class, 'finishQuiz']);
+
+
+  Route::get('start_quiz/freestyle_live_exams/{access_token?}', function($access_token) {
+    // Here you can validate the access token.
+    // Assuming you have a model 'Quiz' that stores the access token and quiz ID
+    
+    $quiz = Topic::where('access_token', $access_token)->first();
+
+    if ($quiz) {
+        // If the token is valid, redirect to the 'start_quiz/{id}' route
+        return redirect()->route('start_quiz', ['id' => $quiz->id]);
+    } else {
+        // If the token is invalid, show an error message or redirect back
+        return redirect()->back()->with('error', 'Invalid access token.');
+    }
+});
+
 
 
   Route::get('admin/moresettings/socialicons/','SocialController@index')->name('socialicons.index');
@@ -202,6 +225,10 @@ Route::group(['middleware'=> 'isadmin'], function(){
   Route::post('admin/mail-settings', 'Configcontroller@changeMailEnvKeys')->name('mail.update');
 
   Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'aboutUs'])->withoutMiddleware(['auth'])->name('about.us');
+
+
+
+  
 
 
 

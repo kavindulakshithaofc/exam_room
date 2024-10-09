@@ -138,6 +138,9 @@
 
           <div class="question-block">
             <h2 class="text-center main-block-heading">{{$topic->title}} Result</h2>
+            @if ($topic->type === 'live_papers')
+        <h3 class="text-center">Teacher will release your results.</h3>
+        @else
             <table class="table table-bordered result-table">
               <thead>
                 <tr>
@@ -169,7 +172,7 @@
                       @endif
                     @endforeach
                     @php
-                      $correct = $mark*$topic->per_q_mark;
+                      $correct = $mark*$topic->per_q_mark ?? 0;
                     @endphp
                     {{$correct}}
                     {{--  @dd($correct); --}}
@@ -178,6 +181,7 @@
                 </tr>
               </tbody>
             </table>
+
             @if($topic->explanation)
               <h5 class="text-center">ප්‍රශ්න පත්‍ර විවරණය: <a href="{{ $topic->explanation }}" target="_blank"> {{$topic->explanation}} </a></h2>
             @else
@@ -195,10 +199,13 @@
                 );
             @endphp
 
-            <audio controls style="margin: 0 auto; display: block;">
-              <source src="{{ asset('audio/' . $audioFile) }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+            
+
+<audio controls style="margin: 0 auto; display: block;">
+  <source src="{{ asset('audio/' . $audioFile) }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+    @endif
             <h2 class="text-center">Thank You!</h2>
           </div>
         </div>
@@ -213,7 +220,7 @@
   // PHP variables to JavaScript
   var countQuestions = {{ $count_questions }};
   var perQMark = {{ $topic->per_q_mark }};
-  var correct = {{ $correct }};
+  var correct = {{ $correct ?? 0 }};
   
   // Calculate the percentage
   var total = (countQuestions * perQMark);

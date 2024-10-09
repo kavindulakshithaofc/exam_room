@@ -60,6 +60,7 @@
               <option value="past_papers">Past Papers</option>
               <option value="challenges">Challenges</option>
               <option value="model_papers">Model Papers</option>
+              <option value="live_papers">Live Online Examination</option>
           </select>
           <small class="text-danger">{{ $errors->first('type') }}</small>
       </div>
@@ -78,7 +79,7 @@
              <input {{ $topic->show_ans ==1 ? "checked" : "" }} type="checkbox" class="toggle-input" name="show_ans" id="toggle{{ $topic->id }}">
              <label for="toggle{{ $topic->id }}"></label>
 
-             {{-- <label for="">Quiz Price:</label>
+             {{-- <label for="">Green/ Red light Enable:</label>
              <input onchange="showprice('{{ $topic->id }}')" {{ $topic->amount !=NULL  ? "checked" : ""}} type="checkbox" class="toggle-input " name="pricechk" id="toggle2{{ $topic->id }}">
              <label for="toggle2{{ $topic->id }}"></label> --}}
 

@@ -46,6 +46,7 @@
                                     <option value="past_papers">Past Papers</option>
                                     <option value="challenges">Challenges</option>
                                     <option value="model_papers">Model Papers</option>
+                                    <option value="live_papers">Live Online Examination</option>
                                 </select>
                                 <small class="text-danger">{{ $errors->first('type') }}</small>
                             </div>
@@ -137,7 +138,7 @@
                         <th>Paper Title</th>
                         <th>Subject</th>
                         <th>Description</th>
-                        <th>Per Question Mark</th>
+                        <th>Private link</th>
                         <th>Time</th>
                         <th>Attempts</th>
                         <th>Actions</th>
@@ -183,66 +184,154 @@
             }
         }
 
+        // $(function() {
+
+        //     var table = $('#topicsTable').DataTable({
+        //         processing: true,
+        //         serverSide: true,
+        //         responsive: true,
+        //         autoWidth: false,
+        //         scrollCollapse: true,
+
+        //         ajax: "{{ route('topics.index') }}",
+        //         columns: [
+
+        //             {
+        //                 data: 'DT_RowIndex',
+        //                 name: 'DT_RowIndex',
+        //                 orderable: false,
+        //                 searchable: false
+        //             },
+        //             {
+        //                 data: 'title',
+        //                 name: 'title'
+        //             },
+        //             {
+        //                 data: 'subject',
+        //                 name: 'subject'
+        //             },
+        //             {
+        //                 data: 'description',
+        //                 name: 'description'
+        //             },
+        //             {
+        //                 data: 'access_token',
+        //                 name: 'access_token'
+        //             },
+        //             {
+        //                 data: 'timer',
+        //                 name: 'timer'
+        //             },
+        //             {
+        //                 data: 'attempts',
+        //                 name: 'attempts'
+        //             },
+        //             //   {data: 'type', name: 'type'},
+        //             {
+        //                 data: 'action',
+        //                 name: 'action',
+        //                 searchable: false
+        //             }
+
+        //         ],
+        //         dom: 'lBfrtip',
+	  	// 		sDom: "<'row'><'row'<'col-md-4'l><'col-md-4'B><'col-md-4'f>r>t<'row'<'col-md-6'i><'col-md-6'p>>",
+        //         buttons: [
+        //             // 'csv', 'excel', 'pdf', 'print'
+        //         ],
+        //         order: [
+        //             [0, 'desc']
+        //         ]
+        //     });
+
+        // });
+
         $(function() {
 
-            var table = $('#topicsTable').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                autoWidth: false,
-                scrollCollapse: true,
+var table = $('#topicsTable').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: true,
+    autoWidth: false,
+    scrollCollapse: true,
 
-                ajax: "{{ route('topics.index') }}",
-                columns: [
+    ajax: "{{ route('topics.index') }}",
+    columns: [
+        {
+            data: 'DT_RowIndex',
+            name: 'DT_RowIndex',
+            orderable: false,
+            searchable: false
+        },
+        {
+            data: 'title',
+            name: 'title'
+        },
+        {
+            data: 'subject',
+            name: 'subject'
+        },
+        {
+            data: 'description',
+            name: 'description'
+        },
+        {
+            data: 'access_token',
+            name: 'access_token',
+            render: function(data, type, row) {
+                if (row.type === 'live_papers') {
+                    return '<button class="btn btn-primary copy-btn" onclick="copyMessage(\'' + data + '\')">Copy Link</button>';
+                }
+                return '';
+            }
+        },
 
-                    {
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'title',
-                        name: 'title'
-                    },
-                    {
-                        data: 'subject',
-                        name: 'subject'
-                    },
-                    {
-                        data: 'description',
-                        name: 'description'
-                    },
-                    {
-                        data: 'per_q_mark',
-                        name: 'per_q_mark'
-                    },
-                    {
-                        data: 'timer',
-                        name: 'timer'
-                    },
-                    {
-                        data: 'attempts',
-                        name: 'attempts'
-                    },
-                    //   {data: 'type', name: 'type'},
-                    {
-                        data: 'action',
-                        name: 'action',
-                        searchable: false
-                    }
+        {
+            data: 'timer',
+            name: 'timer'
+        },
+        {
+            data: 'attempts',
+            name: 'attempts'
+        },
+        {
+            data: 'action',
+            name: 'action',
+            searchable: false
+        }
+    ],
+    dom: 'lBfrtip',
+    sDom: "<'row'><'row'<'col-md-4'l><'col-md-4'B><'col-md-4'f>r>t<'row'<'col-md-6'i><'col-md-6'p>>",
+    buttons: [
+        // 'csv', 'excel', 'pdf', 'print'
+    ],
+    order: [
+        [0, 'desc']
+    ]
+});
 
-                ],
-                dom: 'lBfrtip',
-	  			sDom: "<'row'><'row'<'col-md-4'l><'col-md-4'B><'col-md-4'f>r>t<'row'<'col-md-6'i><'col-md-6'p>>",
-                buttons: [
-                    // 'csv', 'excel', 'pdf', 'print'
-                ],
-                order: [
-                    [0, 'desc']
-                ]
-            });
+});
 
-        });
+function copyMessage(accessToken) {
+    // Define the message template
+    var message = `Dear Student,\n\nWe are pleased to inform you that your exam is now available on the Freestyle Live Exams platform. You can access your exam by clicking on the link below:\n\nhttp://quickquiz.test/start_quiz/freestyle_live_exams/${accessToken}\n\nTo start your exam and provide your answers, simply follow the link. Please note that this is a private link, and you are expected to complete the exam within the allotted time.\n\nBest of luck with your exam! Should you have any questions or issues, feel free to contact us.\n\nSincerely,\nThe Quick Quiz Team`;
+
+    // Create a temporary input element to hold the message
+    var tempInput = document.createElement("textarea");
+    tempInput.value = message;
+    document.body.appendChild(tempInput);
+
+    // Select and copy the text from the input element
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand("copy");
+
+    // Remove the temporary input element from the DOM
+    document.body.removeChild(tempInput);
+
+    // Optionally show a confirmation
+    alert("Exam link is copied to clipboard!");
+}
+
     </script>
 @endsection
